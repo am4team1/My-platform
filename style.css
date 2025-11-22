@@ -1,0 +1,247 @@
+/* نظام الألوان الموحد */
+:root {
+  --primary-color: #CE1126;
+  --secondary-color: #000000;
+  --accent-color: #FFD700;
+  --background-color: #0A0A0A;
+  --text-color: #FFFFFF;
+  --gradient-1: #CE1126;
+  --gradient-2: #FF6B35;
+  --gradient-3: #FFD700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, var(--background-color) 0%, #1a1a1a 100%);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  direction: rtl;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+/* الشعار */
+.logo {
+  text-align: center;
+  margin-bottom: 50px;
+  z-index: 10;
+}
+
+.logo h1 {
+  font-size: 4rem;
+  background: linear-gradient(45deg, var(--gradient-3), var(--gradient-1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  margin-bottom: 10px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.logo .subtitle {
+  font-size: 1.2rem;
+  color: #ccc;
+  letter-spacing: 2px;
+}
+
+/* spinner محسن */
+.spinner-wrapper {
+  position: relative;
+  margin: 40px 0;
+}
+
+.spinner {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  animation: spinning82341 2s linear infinite;
+}
+
+.spinner-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    var(--gradient-1),
+    var(--gradient-2),
+    var(--gradient-3),
+    var(--gradient-1),
+    transparent
+  );
+  filter: blur(10px);
+  position: absolute;
+}
+
+.spinner-core {
+  width: 80px;
+  height: 80px;
+  background: var(--background-color);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(0px);
+}
+
+.spinner-glow {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gradient-1) 0%, transparent 70%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* نص التحميل */
+.loading-text {
+  text-align: center;
+  z-index: 10;
+}
+
+.loading-text p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.progress-bar {
+  width: 300px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-3));
+  border-radius: 10px;
+  animation: progress 3s ease-in-out forwards;
+}
+
+/* تأثيرات الجسيمات */
+.floating-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.particle {
+  position: absolute;
+  background: var(--gradient-3);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) {
+  width: 8px;
+  height: 8px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  width: 12px;
+  height: 12px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 1s;
+}
+
+.particle:nth-child(3) {
+  width: 6px;
+  height: 6px;
+  top: 80%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+.particle:nth-child(4) {
+  width: 10px;
+  height: 10px;
+  top: 30%;
+  left: 70%;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(5) {
+  width: 14px;
+  height: 14px;
+  top: 70%;
+  left: 40%;
+  animation-delay: 4s;
+}
+
+/* الأنيميشنز */
+@keyframes spinning82341 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  to {
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-30px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(15px) rotate(240deg);
+  }
+}
