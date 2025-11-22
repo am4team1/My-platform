@@ -1,11 +1,51 @@
-<!-- اعمل ملف index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-    <title>منصتي التعليمية</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصتي - جاري التحميل</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>أهلاً وسهلاً في منصتي!</h1>
-    <p>جاري التطوير...</p>
+    <div class="loading-container">
+        <!-- الشعار -->
+        <div class="logo">
+            <h1>منصتي</h1>
+            <span class="subtitle">منصة التعلم التقني</span>
+        </div>
+        
+        <!-- spinner محسن -->
+        <div class="spinner-wrapper">
+            <div class="spinner">
+                <div class="spinner-inner"></div>
+                <div class="spinner-core"></div>
+            </div>
+            <div class="spinner-glow"></div>
+        </div>
+        
+        <!-- رسالة تحميل -->
+        <div class="loading-text">
+            <p>جاري تجهيز تجربة التعلم الأسطورية...</p>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+        
+        <!-- تأثيرات جمالية -->
+        <div class="floating-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <script>
+        // الانتقال التلقائي بعد 3 ثواني
+        setTimeout(() => {
+            window.location.href = 'welcome.html';
+        }, 3000);
+    </script>
 </body>
 </html>
