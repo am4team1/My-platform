@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصتي - الدخول الكوني</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- الخلفية الكونية -->
+    <div class="cosmic-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="planet planet-earth"></div>
+        <div class="planet planet-moon"></div>
+        <div class="sun"></div>
+    </div>
+
+    <div class="page-container">
+        <!-- الشعار الكوني -->
+        <div class="cosmic-logo">
+            <h1>منصتي</h1>
+            <span class="subtitle">الدخول إلى الكون التعليمي</span>
+        </div>
+
+        <!-- نموذج الدخول الشفاف -->
+        <div class="glass-form">
+            <form onsubmit="handleLogin(event)">
+                <input type="text" class="glass-input" placeholder="🆔 الرقم الجامعي" required>
+                <input type="password" class="glass-input" placeholder="🔐 كلمة المرور" required>
+                
+                <button type="submit" class="ghost-button full-width">
+                    🌠 دخول الطالب
+                </button>
+            </form>
+
+            <!-- خيارات إضافية -->
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#" style="color: var(--electric-blue); text-decoration: none;">
+                    نسيت كلمة المرور؟
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const studentId = event.target[0].value;
+            const password = event.target[1].value;
+            
+            // محاكاة عملية الدخول
+            alert(`مرحباً الطالب ${studentId}! جاري التحقق...`);
+            window.location.href = 'dashboard.html';
+        }
+
+        // تأثيرات عند التركيز على الحقول
+        document.querySelectorAll('.glass-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
