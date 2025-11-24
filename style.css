@@ -1,16 +1,14 @@
-/* نظام الألوان الموحد لجميع الصفحات */
+/* نظام الألوان الكوني */
 :root {
-  --primary-color: #CE1126;
-  --secondary-color: #000000;
-  --accent-color: #FFD700;
-  --background-color: #0A0A0A;
-  --text-color: #FFFFFF;
-  --gradient-1: #CE1126;
-  --gradient-2: #FF6B35;
-  --gradient-3: #FFD700;
-  --gradient-4: #FF8C00;
-  --button-bg: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-  --button-shadow: 0 0 20px rgba(206, 17, 38, 0.5);
+  --deep-space: #0A0018;
+  --neon-purple: #8A2BE2;
+  --glow-purple: #9370DB;
+  --dark-purple: #4B0082;
+  --electric-blue: #00BFFF;
+  --cosmic-pink: #FF1493;
+  --star-glow: #FFFFFF;
+  --transparent-blue: rgba(0, 191, 255, 0.1);
+  --transparent-purple: rgba(138, 43, 226, 0.2);
 }
 
 * {
@@ -20,15 +18,74 @@
 }
 
 body {
-  background: linear-gradient(135deg, var(--background-color) 0%, #1a1a1a 100%);
-  color: var(--text-color);
+  background: linear-gradient(135deg, var(--deep-space) 0%, var(--dark-purple) 100%);
+  color: var(--star-glow);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100vh;
   overflow: hidden;
-  direction: rtl;
+  position: relative;
 }
 
-/* تصميم الصفحات العامة */
+/* الخلفية الكونية */
+.cosmic-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: var(--star-glow);
+  border-radius: 50%;
+  animation: twinkle 4s infinite;
+}
+
+.star:nth-child(1) { width: 2px; height: 2px; top: 10%; left: 20%; animation-delay: 0s; }
+.star:nth-child(2) { width: 3px; height: 3px; top: 30%; left: 80%; animation-delay: 1s; }
+.star:nth-child(3) { width: 1px; height: 1px; top: 60%; left: 40%; animation-delay: 2s; }
+.star:nth-child(4) { width: 2px; height: 2px; top: 80%; left: 60%; animation-delay: 3s; }
+.star:nth-child(5) { width: 3px; height: 3px; top: 40%; left: 10%; animation-delay: 4s; }
+
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.1;
+}
+
+.planet-earth {
+  width: 300px;
+  height: 300px;
+  background: var(--electric-blue);
+  top: -150px;
+  right: -150px;
+}
+
+.planet-moon {
+  width: 200px;
+  height: 200px;
+  background: var(--glow-purple);
+  bottom: -100px;
+  left: -100px;
+}
+
+.sun {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--cosmic-pink), transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
+  filter: blur(40px);
+}
+
+/* تصميم الصفحات */
 .page-container {
   display: flex;
   flex-direction: column;
@@ -37,172 +94,145 @@ body {
   height: 100vh;
   position: relative;
   padding: 20px;
+  backdrop-filter: blur(10px);
 }
 
-/* الشعار الرئيسي */
-.main-logo {
+/* الشعار الكوني */
+.cosmic-logo {
   text-align: center;
   margin-bottom: 50px;
   z-index: 10;
 }
 
-.main-logo h1 {
+.cosmic-logo h1 {
   font-size: 4rem;
-  background: linear-gradient(45deg, var(--gradient-3), var(--gradient-1));
+  background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 0 30px var(--neon-purple);
   margin-bottom: 10px;
-  animation: glow 2s ease-in-out infinite alternate;
+  animation: cosmic-glow 3s ease-in-out infinite alternate;
 }
 
-.main-logo .subtitle {
+.cosmic-logo .subtitle {
   font-size: 1.2rem;
-  color: #ccc;
-  letter-spacing: 2px;
+  color: var(--glow-purple);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* الأزرار الشفافة */
+.ghost-button {
+  background: var(--transparent-blue);
+  border: 2px solid var(--electric-blue);
+  color: var(--star-glow);
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+  margin: 10px;
+}
+
+.ghost-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--electric-blue), transparent);
+  transition: left 0.5s ease;
+}
+
+.ghost-button:hover:before {
+  left: 100%;
+}
+
+.ghost-button:hover {
+  background: var(--transparent-purple);
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 20px var(--neon-purple);
+  transform: translateY(-3px);
 }
 
 /* مجموعة الأزرار */
 .buttons-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   z-index: 10;
 }
 
-/* الأزرار المعدلة */
-.uiverse {
-  --duration: 7s;
-  --easing: linear;
-  --c-color-1: rgba(206, 17, 38, 0.7);
-  --c-color-2: rgba(255, 107, 53, 0.7);
-  --c-color-3: rgba(255, 215, 0, 0.7);
-  --c-color-4: rgba(255, 140, 0, 0.7);
-  --c-shadow: rgba(206, 17, 38, 0.5);
-  --c-shadow-inset-top: rgba(255, 107, 53, 0.9);
-  --c-shadow-inset-bottom: rgba(255, 215, 0, 0.8);
-  --c-radial-inner: #CE1126;
-  --c-radial-outer: #FF6B35;
-  --c-color: #fff;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  outline: none;
-  position: relative;
-  cursor: pointer;
-  border: none;
-  display: table;
-  border-radius: 24px;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.02em;
-  line-height: 1.5;
-  color: var(--c-color);
-  background: var(--button-bg);
-  box-shadow: var(--button-shadow);
-  transition: all 0.3s ease;
-  min-width: 200px;
+/* النماذج الشفافة */
+.glass-form {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+  z-index: 10;
 }
 
-.uiverse:before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  z-index: 3;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 24px;
-  box-shadow:
-    inset 0 3px 12px var(--c-shadow-inset-top),
-    inset 0 -3px 4px var(--c-shadow-inset-bottom);
-}
-
-.uiverse .wrapper {
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  overflow: hidden;
-  border-radius: 24px;
-  min-width: 200px;
-  padding: 15px 0;
-}
-
-.uiverse .wrapper span {
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-}
-
-.uiverse:hover {
-  --duration: 1400ms;
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(206, 17, 38, 0.7);
-}
-
-/* تأثيرات الجسيمات للصفحات */
-.floating-particles {
-  position: absolute;
+.glass-input {
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: var(--star-glow);
+  font-size: 16px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  outline: none;
+  backdrop-filter: blur(10px);
 }
 
-.particle {
-  position: absolute;
-  background: var(--gradient-3);
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: float 6s ease-in-out infinite;
+.glass-input:focus {
+  border-color: var(--neon-purple);
+  background: rgba(138, 43, 226, 0.1);
+  box-shadow: 0 0 15px var(--neon-purple);
 }
 
-.particle:nth-child(1) { width: 8px; height: 8px; top: 20%; left: 10%; animation-delay: 0s; }
-.particle:nth-child(2) { width: 12px; height: 12px; top: 60%; left: 80%; animation-delay: 1s; }
-.particle:nth-child(3) { width: 6px; height: 6px; top: 80%; left: 20%; animation-delay: 2s; }
-.particle:nth-child(4) { width: 10px; height: 10px; top: 30%; left: 70%; animation-delay: 3s; }
-.particle:nth-child(5) { width: 14px; height: 14px; top: 70%; left: 40%; animation-delay: 4s; }
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
 
 /* الأنيميشنز */
-@keyframes glow {
-  from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
-  to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6); }
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes cosmic-glow {
+  from { text-shadow: 0 0 20px var(--neon-purple); }
+  to { text-shadow: 0 0 30px var(--neon-purple), 0 0 40px var(--electric-blue); }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(-30px) rotate(120deg); }
-  66% { transform: translateY(15px) rotate(240deg); }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(10px) rotate(240deg); }
 }
-
-/* أنيميشنز الأزرار */
-@keyframes circle-1 { 33% { transform: translate(0px, 16px) translateZ(0); } 66% { transform: translate(12px, 64px) translateZ(0); } }
-@keyframes circle-2 { 33% { transform: translate(80px, -10px) translateZ(0); } 66% { transform: translate(72px, -48px) translateZ(0); } }
-@keyframes circle-3 { 33% { transform: translate(20px, 12px) translateZ(0); } 66% { transform: translate(12px, 4px) translateZ(0); } }
-@keyframes circle-4 { 33% { transform: translate(76px, -12px) translateZ(0); } 66% { transform: translate(112px, -8px) translateZ(0); } }
-@keyframes circle-5 { 33% { transform: translate(84px, 28px) translateZ(0); } 66% { transform: translate(40px, -32px) translateZ(0); } }
-@keyframes circle-6 { 33% { transform: translate(28px, -16px) translateZ(0); } 66% { transform: translate(76px, -56px) translateZ(0); } }
-@keyframes circle-7 { 33% { transform: translate(8px, 28px) translateZ(0); } 66% { transform: translate(20px, -60px) translateZ(0); } }
-@keyframes circle-8 { 33% { transform: translate(32px, -4px) translateZ(0); } 66% { transform: translate(56px, -20px) translateZ(0); } }
-@keyframes circle-9 { 33% { transform: translate(20px, -12px) translateZ(0); } 66% { transform: translate(80px, -8px) translateZ(0); } }
-@keyframes circle-10 { 33% { transform: translate(68px, 20px) translateZ(0); } 66% { transform: translate(100px, 28px) translateZ(0); } }
-@keyframes circle-11 { 33% { transform: translate(4px, 4px) translateZ(0); } 66% { transform: translate(68px, 20px) translateZ(0); } }
-@keyframes circle-12 { 33% { transform: translate(56px, 0px) translateZ(0); } 66% { transform: translate(60px, -32px) translateZ(0); } }
 
 /* تصميم متجاوب */
 @media (max-width: 768px) {
-  .main-logo h1 { font-size: 3rem; }
-  .main-logo .subtitle { font-size: 1rem; }
-  .uiverse { min-width: 180px; font-size: 16px; }
-  .uiverse .wrapper { min-width: 180px; padding: 12px 0; }
+  .cosmic-logo h1 { font-size: 3rem; }
+  .cosmic-logo .subtitle { font-size: 1rem; }
+  .ghost-button { min-width: 180px; font-size: 16px; }
+  .glass-form { padding: 30px 20px; }
 }
 
 @media (max-width: 480px) {
-  .main-logo h1 { font-size: 2.5rem; }
-  .buttons-container { gap: 15px; }
-  .uiverse { min-width: 160px; font-size: 14px; }
-  .uiverse .wrapper { min-width: 160px; padding: 10px 0; }
-}
+  .cosmic-logo h1 { font-size: 2.5rem; }
+  .buttons-container { gap: 10px; }
+  .ghost-button { min-width: 160px; font-size: 14px; padding: 12px 25px; }
+                    }
