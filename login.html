@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصتي - الدخول الكوني</title>
+    <title>منصة تعليم البرمجة - الدخول</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- الخلفية الكونية -->
     <div class="cosmic-background">
+        <div class="star"></div>
         <div class="star"></div>
         <div class="star"></div>
         <div class="star"></div>
@@ -20,29 +21,22 @@
     </div>
 
     <div class="page-container">
-        <!-- الشعار الكوني -->
+        <!-- الشعار -->
         <div class="cosmic-logo">
-            <h1>منصتي</h1>
-            <span class="subtitle">الدخول إلى الكون التعليمي</span>
+            <h1>منصة تعليم البرمجة</h1>
+            <div class="subtitle">ابدأ رحلتك البرمجية</div>
         </div>
 
-        <!-- نموذج الدخول الشفاف -->
+        <!-- نموذج الدخول -->
         <div class="glass-form">
             <form onsubmit="handleLogin(event)">
-                <input type="text" class="glass-input" placeholder="🆔 الرقم الجامعي" required>
-                <input type="password" class="glass-input" placeholder="🔐 كلمة المرور" required>
+                <input type="text" class="glass-input" placeholder="الرقم الجامعي" required>
+                <input type="password" class="glass-input" placeholder="كلمة المرور" required>
                 
                 <button type="submit" class="ghost-button full-width">
-                    🌠 دخول الطالب
+                    دخول الطالب
                 </button>
             </form>
-
-            <!-- خيارات إضافية -->
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="#" style="color: var(--electric-blue); text-decoration: none;">
-                    نسيت كلمة المرور؟
-                </a>
-            </div>
         </div>
     </div>
 
@@ -53,8 +47,15 @@
             const password = event.target[1].value;
             
             // محاكاة عملية الدخول
-            alert(`مرحباً الطالب ${studentId}! جاري التحقق...`);
-            window.location.href = 'dashboard.html';
+            if(studentId && password) {
+                // إضافة تأثير تحميل
+                event.target.querySelector('button').innerHTML = 'جاري الدخول...';
+                event.target.querySelector('button').disabled = true;
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+            }
         }
 
         // تأثيرات عند التركيز على الحقول
@@ -68,5 +69,12 @@
             });
         });
     </script>
+
+    <style>
+        .full-width {
+            width: 100%;
+            margin: 0;
+        }
+    </style>
 </body>
 </html>
