@@ -30,259 +30,222 @@
 
     <!-- المحتوى الرئيسي -->
     <div class="dashboard-content">
-        <h2 class="section-title">اختر مجالك البرمجي</h2>
+        <h2 class="section-title">اختر مسارك التعليمي</h2>
         
+        <!-- نظام المجالات -->
         <div class="courses-grid">
             <!-- مجال تطوير الويب -->
-            <div class="course-card" onclick="toggleCourseDetails('web-development')">
+            <div class="course-card" onclick="showCourseDetails('web-development')">
                 <div class="course-icon">🌐</div>
                 <h3 class="course-title">تطوير الويب</h3>
                 <p class="course-description">
                     تعلم بناء مواقع وتطبيقات ويب متكاملة باستخدام أحدث التقنيات. ابدأ رحلتك في عالم البرمجة الأمامية والخلفية.
                 </p>
-                <ul class="course-features">
-                    <li>HTML, CSS, JavaScript</li>
-                    <li>React, Vue, Angular</li>
-                    <li>Node.js, PHP, Python</li>
-                    <li>قواعد البيانات</li>
-                </ul>
                 
-                <!-- قسم التفاصيل -->
-                <div class="course-details" id="web-development-details">
-                    <div class="detail-section">
-                        <h4 class="detail-title">شرح المجال</h4>
-                        <p class="detail-content">
-                            تطوير الويب هو عملية بناء وتصميم مواقع الإنترنت وتطبيقات الويب. يشمل هذا المجال جزئين رئيسيين: 
-                            التطوير الأمامي (Frontend) الذي يهتم بالواجهة التي يراها المستخدم، والتطوير الخلفي (Backend) 
-                            الذي يتعامل مع الخوادم وقواعد البيانات والمنطق الخفي للتطبيقات.
-                        </p>
+                <!-- اللغات التابعة للمجال -->
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">HTML</span>
+                        <span class="course-language-tag">CSS</span>
+                        <span class="course-language-tag">JavaScript</span>
+                        <span class="course-language-tag">React</span>
+                        <span class="course-language-tag">Node.js</span>
                     </div>
-                    
-                    <div class="detail-section">
-                        <h4 class="detail-title">اللغات المتاحة</h4>
-                        <div class="languages-section">
-                            <div class="languages-title">اختر من 1 إلى 5 لغات تريد تعلمها:</div>
-                            <div class="language-count" id="web-language-count">0/5 لغات مختارة</div>
-                            <div class="languages-grid">
-                                <div class="language-option" onclick="toggleLanguage('web', 'html')">
-                                    <div class="language-name">HTML</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('web', 'css')">
-                                    <div class="language-name">CSS</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('web', 'javascript')">
-                                    <div class="language-name">JavaScript</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('web', 'react')">
-                                    <div class="language-name">React</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('web', 'vue')">
-                                    <div class="language-name">Vue</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('web', 'angular')">
-                                    <div class="language-name">Angular</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('web', 'node')">
-                                    <div class="language-name">Node.js</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('web', 'python')">
-                                    <div class="language-name">Python</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="select-course" onclick="selectCourse('web-development')">
-                        اختيار المجال واللغات
-                    </button>
                 </div>
                 
-                <button class="select-course" onclick="event.stopPropagation(); toggleCourseDetails('web-development')">
-                    عرض التفاصيل
+                <button class="select-course" onclick="event.stopPropagation(); selectCourse('web-development')">
+                    اختيار هذا المجال
                 </button>
             </div>
 
             <!-- مجال تطوير الألعاب -->
-            <div class="course-card" onclick="toggleCourseDetails('game-development')">
+            <div class="course-card" onclick="showCourseDetails('game-development')">
                 <div class="course-icon">🎮</div>
                 <h3 class="course-title">تطوير الألعاب</h3>
                 <p class="course-description">
                     اصنع ألعابك الخاصة وتعلم برمجة المحركات والرسوميات. طور مهاراتك في بناء عواقع تفاعلية وجذابة.
                 </p>
-                <ul class="course-features">
-                    <li>Unity, Unreal Engine</li>
-                    <li>C#, C++</li>
-                    <li>الرسوميات والفيزياء</li>
-                    <li>تصميم الشخصيات</li>
-                </ul>
                 
-                <!-- قسم التفاصيل -->
-                <div class="course-details" id="game-development-details">
-                    <div class="detail-section">
-                        <h4 class="detail-title">شرح المجال</h4>
-                        <p class="detail-content">
-                            تطوير الألعاب هو عملية إنشاء ألعاب فيديو تشمل البرمجة، التصميم، الفن، الصوت، والاختبار. 
-                            يبدأ من فكرة اللعبة وينتهي بنشرها على المنصات المختلفة. يتضمن العمل مع محركات الألعاب 
-                            وإنشاء الرسوميات والمؤثرات البصرية والصوتية.
-                        </p>
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">C#</span>
+                        <span class="course-language-tag">C++</span>
+                        <span class="course-language-tag">Unity</span>
+                        <span class="course-language-tag">Unreal Engine</span>
                     </div>
-                    
-                    <div class="detail-section">
-                        <h4 class="detail-title">اللغات المتاحة</h4>
-                        <div class="languages-section">
-                            <div class="languages-title">اختر من 1 إلى 5 لغات تريد تعلمها:</div>
-                            <div class="language-count" id="game-language-count">0/5 لغات مختارة</div>
-                            <div class="languages-grid">
-                                <div class="language-option" onclick="toggleLanguage('game', 'csharp')">
-                                    <div class="language-name">C#</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('game', 'cpp')">
-                                    <div class="language-name">C++</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('game', 'java')">
-                                    <div class="language-name">Java</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('game', 'python')">
-                                    <div class="language-name">Python</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('game', 'lua')">
-                                    <div class="language-name">Lua</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('game', 'unity')">
-                                    <div class="language-name">Unity</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('game', 'unreal')">
-                                    <div class="language-name">Unreal</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="select-course" onclick="selectCourse('game-development')">
-                        اختيار المجال واللغات
-                    </button>
                 </div>
                 
-                <button class="select-course" onclick="event.stopPropagation(); toggleCourseDetails('game-development')">
-                    عرض التفاصيل
+                <button class="select-course" onclick="event.stopPropagation(); selectCourse('game-development')">
+                    اختيار هذا المجال
                 </button>
             </div>
 
             <!-- مجال الذكاء الاصطناعي -->
-            <div class="course-card" onclick="toggleCourseDetails('ai-development')">
+            <div class="course-card" onclick="showCourseDetails('ai-development')">
                 <div class="course-icon">🤖</div>
                 <h3 class="course-title">الذكاء الاصطناعي</h3>
                 <p class="course-description">
                     ادخل عالم المستقبل وتعلم بناء نماذج ذكية. طور أنظمة تتعلم وتتخذ قرارات بشكل مستقل.
                 </p>
-                <ul class="course-features">
-                    <li>Python للذكاء الاصطناعي</li>
-                    <li>تعلم الآلة</li>
-                    <li>الشبكات العصبية</li>
-                    <li>معالجة اللغة</li>
-                </ul>
                 
-                <!-- قسم التفاصيل -->
-                <div class="course-details" id="ai-development-details">
-                    <div class="detail-section">
-                        <h4 class="detail-title">شرح المجال</h4>
-                        <p class="detail-content">
-                            الذكاء الاصطناعي هو مجال من مجالات علوم الكمبيوتر يهتم بإنشاء أنظمة قادرة على أداء مهام 
-                            تتطلب ذكاءً بشرياً. يشمل تعلم الآلة، الشبكات العصبية، الرؤية الحاسوبية، معالجة اللغة الطبيعية، 
-                            والروبوتات. يستخدم في مجالات متعددة مثل الرعاية الصحية، التمويل، والسيارات ذاتية القيادة.
-                        </p>
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">Python</span>
+                        <span class="course-language-tag">TensorFlow</span>
+                        <span class="course-language-tag">PyTorch</span>
+                        <span class="course-language-tag">R</span>
                     </div>
-                    
-                    <div class="detail-section">
-                        <h4 class="detail-title">اللغات المتاحة</h4>
-                        <div class="languages-section">
-                            <div class="languages-title">اختر من 1 إلى 5 لغات تريد تعلمها:</div>
-                            <div class="language-count" id="ai-language-count">0/5 لغات مختارة</div>
-                            <div class="languages-grid">
-                                <div class="language-option" onclick="toggleLanguage('ai', 'python')">
-                                    <div class="language-name">Python</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('ai', 'r')">
-                                    <div class="language-name">R</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('ai', 'julia')">
-                                    <div class="language-name">Julia</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('ai', 'java')">
-                                    <div class="language-name">Java</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('ai', 'cpp')">
-                                    <div class="language-name">C++</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('ai', 'tensorflow')">
-                                    <div class="language-name">TensorFlow</div>
-                                </div>
-                                <div class="language-option" onclick="toggleLanguage('ai', 'pytorch')">
-                                    <div class="language-name">PyTorch</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="select-course" onclick="selectCourse('ai-development')">
-                        اختيار المجال واللغات
-                    </button>
                 </div>
                 
-                <button class="select-course" onclick="event.stopPropagation(); toggleCourseDetails('ai-development')">
-                    عرض التفاصيل
+                <button class="select-course" onclick="event.stopPropagation(); selectCourse('ai-development')">
+                    اختيار هذا المجال
                 </button>
             </div>
 
-            <!-- مجالات أخرى بنفس الهيكل -->
-            <div class="course-card" onclick="toggleCourseDetails('app-development')">
+            <!-- مجالات أخرى -->
+            <div class="course-card" onclick="showCourseDetails('app-development')">
                 <div class="course-icon">📱</div>
                 <h3 class="course-title">تطوير التطبيقات</h3>
                 <p class="course-description">
                     أنشئ تطبيقات موبايل متقدمة لأنظمة Android و iOS. تعلم البرمجة للأجهزة المحمولة بأحدث الأدوات.
                 </p>
-                <ul class="course-features">
-                    <li>Android Studio</li>
-                    <li>Swift for iOS</li>
-                    <li>React Native</li>
-                    <li>Flutter</li>
-                </ul>
-                <button class="select-course" onclick="event.stopPropagation(); toggleCourseDetails('app-development')">
-                    عرض التفاصيل
+                
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">Java</span>
+                        <span class="course-language-tag">Kotlin</span>
+                        <span class="course-language-tag">Swift</span>
+                        <span class="course-language-tag">Flutter</span>
+                    </div>
+                </div>
+                
+                <button class="select-course" onclick="event.stopPropagation(); selectCourse('app-development')">
+                    اختيار هذا المجال
                 </button>
             </div>
 
-            <div class="course-card" onclick="toggleCourseDetails('cybersecurity')">
+            <div class="course-card" onclick="showCourseDetails('cybersecurity')">
                 <div class="course-icon">🛡️</div>
                 <h3 class="course-title">الأمن السيبراني</h3>
                 <p class="course-description">
                     احمِ الأنظمة والشبكات من الهجمات الإلكترونية. تعلم أساسيات الأمن والحماية الرقمية.
                 </p>
-                <ul class="course-features">
-                    <li>أمن الشبكات</li>
-                    <li>اختبار الاختراق</li>
-                    <li>التشفير</li>
-                    <li>التحقيق الرقمي</li>
-                </ul>
-                <button class="select-course" onclick="event.stopPropagation(); toggleCourseDetails('cybersecurity')">
-                    عرض التفاصيل
+                
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">Python</span>
+                        <span class="course-language-tag">Bash</span>
+                        <span class="course-language-tag">PowerShell</span>
+                    </div>
+                </div>
+                
+                <button class="select-course" onclick="event.stopPropagation(); selectCourse('cybersecurity')">
+                    اختيار هذا المجال
                 </button>
             </div>
 
-            <div class="course-card" onclick="toggleCourseDetails('data-science')">
+            <div class="course-card" onclick="showCourseDetails('data-science')">
                 <div class="course-icon">📊</div>
                 <h3 class="course-title">علم البيانات</h3>
                 <p class="course-description">
                     استخرج insights قوية من البيانات. تعلم تحليل البيانات الضخمة واتخاذ قرارات مدعومة بالبيانات.
                 </p>
-                <ul class="course-features">
-                    <li>Python for Data Science</li>
-                    <li>تحليل البيانات</li>
-                    <li>التصور البياني</li>
-                    <li>الإحصاء</li>
-                </ul>
-                <button class="select-course" onclick="event.stopPropagation(); toggleCourseDetails('data-science')">
-                    عرض التفاصيل
+                
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">Python</span>
+                        <span class="course-language-tag">R</span>
+                        <span class="course-language-tag">SQL</span>
+                        <span class="course-language-tag">Pandas</span>
+                    </div>
+                </div>
+                
+                <button class="select-course" onclick="event.stopPropagation(); selectCourse('data-science')">
+                    اختيار هذا المجال
+                </button>
+            </div>
+        </div>
+
+        <!-- المسار الحر - تعلم لغات فقط -->
+        <div class="free-path-section">
+            <h2 class="section-title">أو اختر المسار الحر</h2>
+            
+            <div class="free-path-card">
+                <h3 class="free-path-title">تعلم لغات برمجة فقط</h3>
+                <p class="free-path-description">
+                    اختر من 1 إلى 5 لغات برمجة تريد تعلمها بدون الالتزام بمجال محدد. هذا الخيار مثالي إذا كنت تريد تنمية مهاراتك في لغات معينة.
+                </p>
+                
+                <div class="free-language-count" id="free-language-count">0/5 لغات مختارة</div>
+                
+                <div class="free-languages-grid">
+                    <!-- لغات الويب -->
+                    <div class="free-language-option" onclick="toggleFreeLanguage('html')">
+                        <div class="free-language-name">HTML</div>
+                        <div class="free-language-type">تطوير الويب</div>
+                    </div>
+                    <div class="free-language-option" onclick="toggleFreeLanguage('css')">
+                        <div class="free-language-name">CSS</div>
+                        <div class="free-language-type">تطوير الويب</div>
+                    </div>
+                    <div class="free-language-option" onclick="toggleFreeLanguage('javascript')">
+                        <div class="free-language-name">JavaScript</div>
+                        <div class="free-language-type">تطوير الويب</div>
+                    </div>
+                    <div class="free-language-option" onclick="toggleFreeLanguage('react')">
+                        <div class="free-language-name">React</div>
+                        <div class="free-language-type">تطوير الويب</div>
+                    </div>
+                    
+                    <!-- لغات الألعاب -->
+                    <div class="free-language-option" onclick="toggleFreeLanguage('csharp')">
+                        <div class="free-language-name">C#</div>
+                        <div class="free-language-type">تطوير الألعاب</div>
+                    </div>
+                    <div class="free-language-option" onclick="toggleFreeLanguage('cpp')">
+                        <div class="free-language-name">C++</div>
+                        <div class="free-language-type">تطوير الألعاب</div>
+                    </div>
+                    
+                    <!-- لغات الذكاء الاصطناعي -->
+                    <div class="free-language-option" onclick="toggleFreeLanguage('python')">
+                        <div class="free-language-name">Python</div>
+                        <div class="free-language-type">الذكاء الاصطناعي</div>
+                    </div>
+                    <div class="free-language-option" onclick="toggleFreeLanguage('tensorflow')">
+                        <div class="free-language-name">TensorFlow</div>
+                        <div class="free-language-type">الذكاء الاصطناعي</div>
+                    </div>
+                    
+                    <!-- لغات التطبيقات -->
+                    <div class="free-language-option" onclick="toggleFreeLanguage('java')">
+                        <div class="free-language-name">Java</div>
+                        <div class="free-language-type">تطوير التطبيقات</div>
+                    </div>
+                    <div class="free-language-option" onclick="toggleFreeLanguage('swift')">
+                        <div class="free-language-name">Swift</div>
+                        <div class="free-language-type">تطوير التطبيقات</div>
+                    </div>
+                    
+                    <!-- لغات أخرى -->
+                    <div class="free-language-option" onclick="toggleFreeLanguage('sql')">
+                        <div class="free-language-name">SQL</div>
+                        <div class="free-language-type">قواعد البيانات</div>
+                    </div>
+                    <div class="free-language-option" onclick="toggleFreeLanguage('php')">
+                        <div class="free-language-name">PHP</div>
+                        <div class="free-language-type">تطوير الويب</div>
+                    </div>
+                </div>
+                
+                <button class="confirm-button" id="confirm-free-path" onclick="confirmFreePath()" disabled>
+                    تأكيد اختيار اللغات
                 </button>
             </div>
         </div>
@@ -316,84 +279,159 @@
         </a>
     </div>
 
-    <script>
-        // نظام اختيار اللغات
-        const selectedLanguages = {
-            web: new Set(),
-            game: new Set(),
-            ai: new Set(),
-            app: new Set(),
-            cyber: new Set(),
-            data: new Set()
-        };
+    <!-- نافذة التفاصيل -->
+    <div id="course-modal" class="modal">
+        <div class="glass-form modal-content">
+            <h3 id="modal-title">تفاصيل المجال</h3>
+            <div id="modal-description"></div>
+            <div class="modal-languages" id="modal-languages"></div>
+            <button class="select-course full-width" onclick="closeModal()">
+                فهمت، شكراً!
+            </button>
+        </div>
+    </div>
 
-        function toggleLanguage(courseType, language) {
-            const languageSet = selectedLanguages[courseType];
+    <script>
+        // نظام المسار الحر
+        const selectedFreeLanguages = new Set();
+        
+        function toggleFreeLanguage(language) {
             const languageElement = event.currentTarget;
             
-            if (languageSet.has(language)) {
-                languageSet.delete(language);
+            if (selectedFreeLanguages.has(language)) {
+                selectedFreeLanguages.delete(language);
                 languageElement.classList.remove('selected');
             } else {
-                if (languageSet.size >= 5) {
-                    alert('يمكنك اختيار 5 لغات كحد أقصى');
+                if (selectedFreeLanguages.size >= 5) {
+                    alert('يمكنك اختيار 5 لغات كحد أقصى في المسار الحر');
                     return;
                 }
-                languageSet.add(language);
+                selectedFreeLanguages.add(language);
                 languageElement.classList.add('selected');
             }
             
-            // تحديث العداد
-            updateLanguageCount(courseType);
+            updateFreeLanguageCount();
         }
-
-        function updateLanguageCount(courseType) {
-            const count = selectedLanguages[courseType].size;
-            document.getElementById(`${courseType}-language-count`).textContent = `${count}/5 لغات مختارة`;
-        }
-
-        // نظام عرض التفاصيل
-        function toggleCourseDetails(courseId) {
-            const detailsElement = document.getElementById(`${courseId}-details`);
-            const allDetails = document.querySelectorAll('.course-details');
+        
+        function updateFreeLanguageCount() {
+            const count = selectedFreeLanguages.size;
+            const countElement = document.getElementById('free-language-count');
+            const confirmButton = document.getElementById('confirm-free-path');
             
-            // إغلاق جميع التفاصيل الأخرى
-            allDetails.forEach(detail => {
-                if (detail !== detailsElement) {
-                    detail.classList.remove('expanded');
-                }
-            });
+            countElement.textContent = `${count}/5 لغات مختارة`;
             
-            // تبديل التفاصيل الحالية
-            detailsElement.classList.toggle('expanded');
-        }
-
-        function selectCourse(courseId) {
-            const courseName = getCourseName(courseId);
-            const languages = Array.from(selectedLanguages[courseId.replace('-development', '')]);
-            
-            if (languages.length === 0) {
-                alert('يرجى اختيار لغة واحدة على الأقل');
-                return;
+            // تفعيل/تعطيل زر التأكيد
+            if (count > 0) {
+                confirmButton.disabled = false;
+            } else {
+                confirmButton.disabled = true;
             }
-            
-            alert(`تم اختيار مجال ${courseName} مع اللغات: ${languages.join(', ')}`);
-            // هنا راح ننقل لصفحة المجال
-            window.location.href = `course-${courseId}.html`;
         }
-
-        function getCourseName(courseId) {
+        
+        function confirmFreePath() {
+            const languages = Array.from(selectedFreeLanguages);
+            const languageNames = languages.map(getLanguageName);
+            
+            alert(`تم اختيار المسار الحر مع اللغات: ${languageNames.join(', ')}`);
+            // الانتقال لصفحة التعلم
+            window.location.href = 'free-path.html';
+        }
+        
+        function getLanguageName(languageId) {
+            const languages = {
+                'html': 'HTML',
+                'css': 'CSS',
+                'javascript': 'JavaScript',
+                'react': 'React',
+                'csharp': 'C#',
+                'cpp': 'C++',
+                'python': 'Python',
+                'tensorflow': 'TensorFlow',
+                'java': 'Java',
+                'swift': 'Swift',
+                'sql': 'SQL',
+                'php': 'PHP'
+            };
+            return languages[languageId];
+        }
+        
+        // نظام عرض تفاصيل المجال
+        function showCourseDetails(courseId) {
+            const courseDetails = getCourseDetails(courseId);
+            const modal = document.getElementById('course-modal');
+            const title = document.getElementById('modal-title');
+            const description = document.getElementById('modal-description');
+            const languages = document.getElementById('modal-languages');
+            
+            title.textContent = courseDetails.title;
+            description.innerHTML = `<p>${courseDetails.description}</p>`;
+            languages.innerHTML = `
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها في هذا المجال:</div>
+                    <div class="course-languages-list">
+                        ${courseDetails.languages.map(lang => `<span class="course-language-tag">${lang}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('course-modal').style.display = 'none';
+        }
+        
+        function getCourseDetails(courseId) {
             const courses = {
-                'web-development': 'تطوير الويب',
-                'game-development': 'تطوير الألعاب', 
-                'ai-development': 'الذكاء الاصطناعي',
-                'app-development': 'تطوير التطبيقات',
-                'cybersecurity': 'الأمن السيبراني',
-                'data-science': 'علم البيانات'
+                'web-development': {
+                    title: 'تطوير الويب',
+                    description: 'تطوير الويب هو عملية بناء وتصميم مواقع الإنترنت وتطبيقات الويب. يشمل هذا المجال جزئين رئيسيين: التطوير الأمامي (Frontend) الذي يهتم بالواجهة التي يراها المستخدم، والتطوير الخلفي (Backend) الذي يتعامل مع الخوادم وقواعد البيانات والمنطق الخفي للتطبيقات.',
+                    languages: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'Python', 'PHP', 'SQL']
+                },
+                'game-development': {
+                    title: 'تطوير الألعاب',
+                    description: 'تطوير الألعاب هو عملية إنشاء ألعاب فيديو تشمل البرمجة، التصميم، الفن، الصوت، والاختبار. يبدأ من فكرة اللعبة وينتهي بنشرها على المنصات المختلفة. يتضمن العمل مع محركات الألعاب وإنشاء الرسوميات والمؤثرات البصرية والصوتية.',
+                    languages: ['C#', 'C++', 'Unity', 'Unreal Engine', 'Java', 'Python']
+                },
+                'ai-development': {
+                    title: 'الذكاء الاصطناعي',
+                    description: 'الذكاء الاصطناعي هو مجال من مجالات علوم الكمبيوتر يهتم بإنشاء أنظمة قادرة على أداء مهام تتطلب ذكاءً بشرياً. يشمل تعلم الآلة، الشبكات العصبية، الرؤية الحاسوبية، معالجة اللغة الطبيعية، والروبوتات.',
+                    languages: ['Python', 'TensorFlow', 'PyTorch', 'R', 'Java', 'C++']
+                },
+                'app-development': {
+                    title: 'تطوير التطبيقات',
+                    description: 'تطوير التطبيقات يركز على إنشاء برامج تعمل على الأجهزة المحمولة والحواسيب. يشمل تطوير تطبيقات Android و iOS وتطبيقات سطح المكتب باستخدام مختلف التقنيات والأطر.',
+                    languages: ['Java', 'Kotlin', 'Swift', 'Flutter', 'React Native']
+                },
+                'cybersecurity': {
+                    title: 'الأمن السيبراني',
+                    description: 'الأمن السيبراني هو ممارسة حماية الأنظمة والشبكات والبرامج من الهجمات الرقمية. يهدف إلى تقليل خطر الهجمات الإلكترونية وحماية الأنظمة والشبكات من الاستغلال.',
+                    languages: ['Python', 'Bash', 'PowerShell', 'C', 'C++']
+                },
+                'data-science': {
+                    title: 'علم البيانات',
+                    description: 'علم البيانات مجال متعدد التخصصات يستخدم الأساليب العلمية والعمليات والخوارزميات والنظم لاستخراج المعرفة insights من البيانات المهيكلة وغير المهيكلة.',
+                    languages: ['Python', 'R', 'SQL', 'Pandas', 'NumPy', 'Matplotlib']
+                }
             };
             return courses[courseId];
         }
-
+        
+        function selectCourse(courseId) {
+            const courseDetails = getCourseDetails(courseId);
+            alert(`تم اختيار مجال ${courseDetails.title}`);
+            // الانتقال لصفحة المجال
+            window.location.href = `course-${courseId}.html`;
+        }
+        
+        // إغلاق النافذة عند الضغط خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById('course-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
         // تأثيرات عند التمرير
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.course-card');
@@ -411,5 +449,31 @@
             });
         });
     </script>
+
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-languages {
+            margin: 20px 0;
+        }
+    </style>
 </body>
 </html>
