@@ -243,47 +243,216 @@ body {
   animation: spin 2s linear infinite;
 }
 
-/* شريط التنقل السفلي */
+/* شريط التنقل السفلي المحدث */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(10, 10, 42, 0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(0, 204, 255, 0.3);
-  padding: 15px 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(139, 0, 255, 0.1); /* شفافية بنفسجية */
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(139, 0, 255, 0.3);
+    padding: 8px 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    transition: all 0.3s ease;
+    height: 60px;
+    overflow: hidden;
+}
+
+.bottom-nav.expanded {
+    height: 120px;
+    background: rgba(139, 0, 255, 0.15);
+}
+
+.nav-items-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    transition: all 0.3s ease;
 }
 
 .nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--star-glow);
-  text-decoration: none;
-  font-size: 12px;
-  transition: all 0.3s ease;
-  padding: 5px 15px;
-  border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 11px;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 12px;
+    min-width: 60px;
+    position: relative;
+    transform: translateY(0);
 }
 
 .nav-item:hover {
-  background: var(--transparent-blue);
-  transform: translateY(-3px);
+    color: var(--star-glow);
+    background: rgba(139, 0, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .nav-item.active {
-  color: var(--neon-purple);
+    color: var(--neon-purple);
+    background: rgba(139, 0, 255, 0.25);
 }
 
 .nav-icon {
-  font-size: 20px;
-  margin-bottom: 5px;
-  font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
+
+.nav-item:hover .nav-icon {
+    transform: scale(1.1);
+}
+
+.nav-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.nav-item:hover .nav-label {
+    opacity: 1;
+}
+
+/* تأثير النبض للشريط */
+@keyframes nav-pulse {
+    0%, 100% { 
+        background: rgba(139, 0, 255, 0.1);
+        border-color: rgba(139, 0, 255, 0.3);
+    }
+    50% { 
+        background: rgba(139, 0, 255, 0.15);
+        border-color: rgba(139, 0, 255, 0.5);
+    }
+}
+
+.bottom-nav:not(.expanded) {
+    animation: nav-pulse 4s ease-in-out infinite;
+}
+
+/* زر توسيع/طي الشريط */
+.nav-toggle {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 20px;
+    background: rgba(139, 0, 255, 0.3);
+    border: 1px solid rgba(139, 0, 255, 0.5);
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--star-glow);
+    font-size: 12px;
+}
+
+.nav-toggle:hover {
+    background: rgba(139, 0, 255, 0.5);
+    height: 25px;
+}
+
+/* تصميم متجاوب للشريط */
+@media (max-width: 768px) {
+    .bottom-nav {
+        height: 55px;
+        padding: 6px 0;
+    }
+    
+    .bottom-nav.expanded {
+        height: 110px;
+    }
+    
+    .nav-item {
+        padding: 6px 10px;
+        min-width: 55px;
+        font-size: 10px;
+    }
+    
+    .nav-icon {
+        font-size: 18px;
+    }
+    
+    .nav-label {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bottom-nav {
+        height: 50px;
+        padding: 5px 0;
+    }
+    
+    .bottom-nav.expanded {
+        height: 100px;
+    }
+    
+    .nav-item {
+        padding: 5px 8px;
+        min-width: 50px;
+        font-size: 9px;
+    }
+    
+    .nav-icon {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+    
+    .nav-label {
+        font-size: 8px;
+    }
+}
+
+/* تأثيرات خاصة للشات */
+.nav-item.chat-item .nav-icon {
+    color: var(--success-color);
+    animation: chat-pulse 2s ease-in-out infinite;
+}
+
+@keyframes chat-pulse {
+    0%, 100% { 
+        transform: scale(1);
+        color: var(--success-color);
+    }
+    50% { 
+        transform: scale(1.1);
+        color: var(--electric-blue);
+    }
+}
+
+/* إشعارات */
+.nav-notification {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    width: 6px;
+    height: 6px;
+    background: var(--danger-color);
+    border-radius: 50%;
+    animation: notification-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes notification-pulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
 
 /* هيدر الصفحة */
 .dashboard-header {
@@ -313,7 +482,7 @@ body {
   padding: 5px 15px;
   border-radius: 20px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-eight: 500;
 }
 
 /* محتوى الصفحة - إصلاح التمرير */
