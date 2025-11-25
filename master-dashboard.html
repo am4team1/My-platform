@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المستر - منصة تعليم البرمجة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cosmic-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="planet planet-earth"></div>
+        <div class="planet planet-moon"></div>
+        <div class="sun"></div>
+    </div>
+
+    <div class="dashboard-header">
+        <div class="cosmic-logo">
+            <h1>لوحة تحكم المستر</h1>
+            <div class="user-info">
+                <div class="welcome-text" id="masterWelcome">مرحباً، المستر</div>
+                <div class="user-type-badge">مستر</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <!-- إحصائيات سريعة -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="classStudents">0</div>
+                <div class="stat-label">طلاب الفصل</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeStudents">0</div>
+                <div class="stat-label">طلاب نشطين</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedCourses">0</div>
+                <div class="stat-label">مقررات مكتملة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="averageProgress">0%</div>
+                <div class="stat-label">متوسط التقدم</div>
+            </div>
+        </div>
+
+        <!-- إدارة طلاب الفصل -->
+        <h2 class="section-title">إدارة طلاب الفصل</h2>
+        
+        <div class="users-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>المعرف</th>
+                        <th>الاسم</th>
+                        <th>التقدم</th>
+                        <th>آخر نشاط</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="classStudentsTable">
+                    <!-- سيتم ملؤه بالبيانات -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- إضافة طالب جديد -->
+        <div class="glass-form">
+            <h3 style="text-align: center; color: var(--electric-blue); margin-bottom: 30px;">إضافة طالب جديد للفصل</h3>
+            
+            <div class="input-group">
+                <input type="text" class="glass-input" id="newStudentId" placeholder="معرف الطالب (11 رقم)" maxlength="11">
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="glass-input" id="newStudentName" placeholder="اسم الطالب">
+            </div>
+
+            <div class="input-group">
+                <input type="password" class="glass-input" id="newStudentPassword" placeholder="كلمة المرور">
+            </div>
+
+            <button class="ghost-button full-width" onclick="addStudentToClass()">
+                إضافة طالب للفصل
+            </button>
+        </div>
+
+        <!-- المحتوى التعليمي -->
+        <h2 class="section-title">المحتوى التعليمي للفصل</h2>
+        
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-icon">📚</div>
+                <h3 class="course-title">إدارة الدروس</h3>
+                <p class="course-description">
+                    إنشاء وتعديل الدروس التعليمية للفصل ومتابعة تقدم الطلاب في كل درس.
+                </p>
+                <button class="select-course" onclick="manageLessons()">
+                    إدارة الدروس
+                </button>
+            </div>
+
+            <div class="course-card">
+                <div class="course-icon">📝</div>
+                <h3 class="course-title">الاختبارات والتقييمات</h3>
+                <p class="course-description">
+                    إنشاء اختبارات للفصل وتتبع نتائج الطلاب وتقييم أدائهم.
+                </p>
+                <button class="select-course" onclick="manageTests()">
+                    إدارة الاختبارات
+                </button>
+            </div>
+
+            <div class="course-card">
+                <div class="course-icon">📊</div>
+                <h3 class="course-title">تقارير الأداء</h3>
+                <p class="course-description">
+                    عرض تقارير مفصلة عن أداء طلاب الفصل وتحليل نقاط القوة والضعف.
+                </p>
+                <button class="select-course" onclick="viewPerformanceReports()">
+                    عرض التقارير
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <div class="bottom-nav">
+        <a href="master-dashboard.html" class="nav-item active">
+            <div class="nav-icon">🏠</div>
+            الرئيسية
+        </a>
+        <a href="#" class="nav-item" onclick="showStudentsManagement()">
+            <div class="nav-icon">👥</div>
+            الطلاب
+        </a>
+        <a href="#" class="nav-item" onclick="showContentManagement()">
+            <div class="nav-icon">📚</div>
+            المحتوى
+        </a>
+        <a href="#" class="nav-item" onclick="showReports()">
+            <div class="nav-icon">📊</div>
+            التقارير
+        </a>
+        <a href="login.html" class="nav-item">
+            <div class="nav-icon">🚪</div>
+            خروج
+        </a>
+    </div>
+
+    <script>
+        // تحميل البيانات
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMasterData();
+            loadClassStudents();
+        });
+
+        // تحميل بيانات المستر
+        function loadMasterData() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.userType === '1') {
+                document.getElementById('masterWelcome').textContent = `مرحباً، ${currentUser.fullName}`;
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // تحميل طلاب الفصل
+        function loadClassStudents() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const allUsers = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            
+            // فلترة الطلاب التابعين لنفس مدرسة المستر
+            const classStudents = allUsers.filter(user => 
+                user.userType === '2' && 
+                user.school === currentUser.school
+            );
+
+            // تحديث الإحصائيات
+            document.getElementById('classStudents').textContent = classStudents.length;
+            document.getElementById('activeStudents').textContent = classStudents.length;
+            document.getElementById('completedCourses').textContent = '0';
+            document.getElementById('averageProgress').textContent = '0%';
+
+            // تحديث الجدول
+            const tableBody = document.getElementById('classStudentsTable');
+            tableBody.innerHTML = '';
+
+            classStudents.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>${student.fullName}</td>
+                    <td>
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 10px; width: 100%;">
+                            <div style="background: var(--success-color); height: 100%; width: 0%; border-radius: 10px;"></div>
+                        </div>
+                        <small>0%</small>
+                    </td>
+                    <td>${new Date().toLocaleDateString('ar-EG')}</td>
+                    <td><span style="color: var(--success-color);">●</span> نشط</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="viewStudentProgress('${student.id}')">تقدم</button>
+                        <button class="btn btn-delete" onclick="removeStudent('${student.id}')">حذف</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // إضافة طالب للفصل
+        function addStudentToClass() {
+            const studentId = document.getElementById('newStudentId').value;
+            const studentName = document.getElementById('newStudentName').value;
+            const studentPassword = document.getElementById('newStudentPassword').value;
+
+            if (!studentId || !studentName || !studentPassword) {
+                alert('يرجى ملء جميع الحقول!');
+                return;
+            }
+
+            if (studentId.length !== 11) {
+                alert('المعرف يجب أن يكون 11 رقم!');
+                return;
+            }
+
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+
+            // التحقق من عدم وجود معرف مكرر
+            if (users.find(user => user.id === studentId)) {
+                alert('هذا المعرف موجود مسبقاً!');
+                return;
+            }
+
+            const newStudent = {
+                id: studentId,
+                password: studentPassword,
+                fullName: studentName,
+                userType: '2',
+                governorate: currentUser.governorate,
+                city: currentUser.city,
+                school: currentUser.school,
+                studentId: studentId.slice(-3),
+                createdAt: new Date().toISOString(),
+                masterId: currentUser.id
+            };
+
+            users.push(newStudent);
+            localStorage.setItem('platformUsers', JSON.stringify(users));
+
+            alert(`تم إضافة الطالب بنجاح!\nالمعرف: ${studentId}`);
+
+            // إعادة تعيين النموذج
+            document.getElementById('newStudentId').value = '';
+            document.getElementById('newStudentName').value = '';
+            document.getElementById('newStudentPassword').value = '';
+
+            // تحديث البيانات
+            loadClassStudents();
+        }
+
+        // إزالة طالب من الفصل
+        function removeStudent(studentId) {
+            if (confirm('هل أنت متأكد من حذف هذا الطالب من الفصل؟')) {
+                let users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+                users = users.filter(u => u.id !== studentId);
+                localStorage.setItem('platformUsers', JSON.stringify(users));
+                alert('تم حذف الطالب بنجاح!');
+                loadClassStudents();
+            }
+        }
+
+        // عرض تقدم الطالب
+        function viewStudentProgress(studentId) {
+            alert(`عرض تقدم الطالب ${studentId} - هذه الخاصية قيد التطوير`);
+        }
+
+        // وظائف إدارة المحتوى
+        function manageLessons() {
+            alert('نظام إدارة الدروس قريباً...');
+        }
+
+        function manageTests() {
+            alert('نظام إدارة الاختبارات قيد التطوير...');
+        }
+
+        function viewPerformanceReports() {
+            alert('نظام التقارير قيد التطوير...');
+        }
+
+        // وظائف شريط التنقل
+        function showStudentsManagement() {
+            document.querySelector('.users-table').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showContentManagement() {
+            document.querySelector('.courses-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showReports() {
+            document.querySelector('.stats-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

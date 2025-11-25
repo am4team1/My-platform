@@ -1,120 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المستر - منصة تعليم البرمجة</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="cosmic-background">
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="planet planet-earth"></div>
-        <div class="planet planet-moon"></div>
-        <div class="sun"></div>
-    </div>
-
-    <div class="dashboard-header">
-        <div class="cosmic-logo">
-            <h1>لوحة تحكم المستر</h1>
-            <div id="userWelcome" class="welcome-text">مرحباً، المستر</div>
-        </div>
-    </div>
-
-    <div class="dashboard-content">
-        <h2 class="section-title">إدارة الطلاب والمحتوى</h2>
-        
-        <div class="courses-grid">
-            <div class="course-card">
-                <div class="course-icon">📊</div>
-                <h3 class="course-title">إدارة الطلاب</h3>
-                <p class="course-description">
-                    عرض وإدارة قائمة الطلاب المسجلين في المنصة وتتبع تقدمهم التعليمي.
-                </p>
-                <button class="select-course" onclick="manageStudents()">
-                    إدارة الطلاب
-                </button>
-            </div>
-
-            <div class="course-card">
-                <div class="course-icon">📝</div>
-                <h3 class="course-title">إنشاء المحتوى</h3>
-                <p class="course-description">
-                    إنشاء وتعديل الدروس والتمارين والاختبارات للطلاب.
-                </p>
-                <button class="select-course" onclick="createContent()">
-                    إنشاء محتوى
-                </button>
-            </div>
-
-            <div class="course-card">
-                <div class="course-icon">📈</div>
-                <h3 class="course-title">التقارير والإحصائيات</h3>
-                <p class="course-description">
-                    عرض تقارير أداء الطلاب وإحصائيات التقدم في التعلم.
-                </p>
-                <button class="select-course" onclick="viewReports()">
-                    عرض التقارير
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- شريط التنقل السفلي -->
-    <div class="bottom-nav">
-        <a href="master.html" class="nav-item active">
-            <div class="nav-icon">🏠</div>
-            الرئيسية
-        </a>
-        <a href="students.html" class="nav-item">
-            <div class="nav-icon">👥</div>
-            الطلاب
-        </a>
-        <a href="content.html" class="nav-item">
-            <div class="nav-icon">📚</div>
-            المحتوى
-        </a>
-        <a href="reports.html" class="nav-item">
-            <div class="nav-icon">📊</div>
-            التقارير
-        </a>
-        <a href="settings.html" class="nav-item">
-            <div class="nav-icon">⚙️</div>
-            الإعدادات
-        </a>
-        <a href="login.html" class="nav-item">
-            <div class="nav-icon">🚪</div>
-            خروج
-        </a>
-    </div>
-
-    <script>
-        // تحميل بيانات المستخدم الحالي
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (currentUser && currentUser.userType === '1') {
-                document.getElementById('userWelcome').textContent = `مرحباً، المستر ${currentUser.fullName}`;
-            } else {
-                window.location.href = 'login.html';
-            }
-        });
-
-        function manageStudents() {
-            alert('سيتم فتح صفحة إدارة الطلاب قريباً');
-        }
-
-        function createContent() {
-            alert('سيتم فتح صفحة إنشاء المحتوى قريباً');
-        }
-
-        function viewReports() {
-            alert('سيتم فتح صفحة التقارير قريباً');
-        }
-    </script>
-</body>
-</html>
