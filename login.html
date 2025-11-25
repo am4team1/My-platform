@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تعليم البرمجة - الدخول</title>
+    <title>منصة تعليم البرمجة - تسجيل الدخول</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,13 +22,13 @@
     <div class="page-container">
         <div class="cosmic-logo">
             <h1>منصة تعليم البرمجة</h1>
-            <div class="subtitle">تسجيل الدخول للنظام</div>
+            <div class="subtitle">نظام الإدارة المتكامل</div>
         </div>
 
         <div class="glass-form">
             <form onsubmit="handleLogin(event)">
                 <div class="input-group">
-                    <input type="text" class="glass-input" id="userId" placeholder="المعرف الكامل (11 رقم)" required maxlength="11">
+                    <input type="text" class="glass-input" id="userId" placeholder="المعرف الكامل (11 رقم)" required maxlength="11" pattern="[0-9]{11}">
                 </div>
 
                 <div class="input-group">
@@ -36,19 +36,21 @@
                 </div>
 
                 <button type="submit" class="ghost-button full-width">
-                    دخول الطالب/المستر
+                    تسجيل الدخول
                 </button>
             </form>
 
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="owner.html" style="color: var(--electric-blue); text-decoration: none;">
-                    دخول كمالك للنظام
-                </a>
+            <div style="text-align: center; margin-top: 20px; color: var(--electric-blue);">
+                <small>يدخل المالك بـ: 00000000000 / Admin@2024</small>
             </div>
         </div>
     </div>
 
     <script>
+        // بيانات المالك الثابتة
+        const OWNER_ID = '00000000000';
+        const OWNER_PASSWORD = 'Admin@2024';
+
         function handleLogin(event) {
             event.preventDefault();
             
@@ -56,17 +58,13 @@
             const password = document.getElementById('password').value;
             const button = event.target.querySelector('button');
 
-            // بيانات المالك الثابتة
-            const ownerId = '00000000000'; // 11 صفر
-            const ownerPassword = 'Admin@2024'; // باسورد صعب
-
             // التحقق من المالك
-            if (userId === ownerId && password === ownerPassword) {
+            if (userId === OWNER_ID && password === OWNER_PASSWORD) {
                 button.innerHTML = 'جاري الدخول كمالك...';
                 button.disabled = true;
                 setTimeout(() => {
-                    window.location.href = 'owner.html';
-                }, 2000);
+                    window.location.href = 'owner-dashboard.html';
+                }, 1500);
                 return;
             }
 
@@ -83,11 +81,11 @@
                 
                 setTimeout(() => {
                     if (user.userType === '1') {
-                        window.location.href = 'master.html';
+                        window.location.href = 'master-dashboard.html';
                     } else {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'student-dashboard.html';
                     }
-                }, 2000);
+                }, 1500);
             } else {
                 alert('المعرف أو كلمة المرور غير صحيحة!');
             }
@@ -107,6 +105,37 @@
         // التحقق من صحة المعرف (أرقام فقط)
         document.getElementById('userId').addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // تحميل أولي للمستخدمين إذا لم يكونوا موجودين
+        document.addEventListener('DOMContentLoaded', function() {
+            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            if (users.length === 0) {
+                // إضافة بعض المستخدمين التجريبيين
+                const sampleUsers = [
+                    {
+                        id: '02249123201',
+                        password: 'master123',
+                        fullName: 'أحمد محمد',
+                        userType: '1',
+                        governorate: '02',
+                        city: '249',
+                        school: '23',
+                        studentId: '201'
+                    },
+                    {
+                        id: '02249123001',
+                        password: 'student123',
+                        fullName: 'محمد أحمد',
+                        userType: '2',
+                        governorate: '02',
+                        city: '249',
+                        school: '23',
+                        studentId: '001'
+                    }
+                ];
+                localStorage.setItem('platformUsers', JSON.stringify(sampleUsers));
+            }
         });
     </script>
 
