@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المالك - منصة تعليم البرمجة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cosmic-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="planet planet-earth"></div>
+        <div class="planet planet-moon"></div>
+        <div class="sun"></div>
+    </div>
+
+    <div class="dashboard-header">
+        <div class="cosmic-logo">
+            <h1>لوحة تحكم المالك</h1>
+            <div class="user-info">
+                <div class="welcome-text">مرحباً، مالك النظام</div>
+                <div class="user-type-badge">مالك</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <!-- إحصائيات سريعة -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalUsers">0</div>
+                <div class="stat-label">إجمالي المستخدمين</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalMasters">0</div>
+                <div class="stat-label">عدد المسترين</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalStudents">0</div>
+                <div class="stat-label">عدد الطلاب</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeToday">0</div>
+                <div class="stat-label">نشط اليوم</div>
+            </div>
+        </div>
+
+        <!-- إدارة المستخدمين -->
+        <h2 class="section-title">إدارة المستخدمين</h2>
+        
+        <div class="users-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>المعرف</th>
+                        <th>الاسم</th>
+                        <th>النوع</th>
+                        <th>المدرسة</th>
+                        <th>آخر دخول</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- سيتم ملؤه بالبيانات -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- إضافة مستخدم جديد -->
+        <div class="glass-form">
+            <h3 style="text-align: center; color: var(--electric-blue); margin-bottom: 30px;">إضافة مستخدم جديد</h3>
+            
+            <div class="input-group">
+                <select class="glass-input" id="governorate">
+                    <option value="">اختر المحافظة</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <select class="glass-input" id="userType">
+                    <option value="">اختر النوع</option>
+                    <option value="1">مستر</option>
+                    <option value="2">طالب</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="glass-input" id="studentId" placeholder="المعرف الفرعي (3 أرقام)" maxlength="3">
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="glass-input" id="fullName" placeholder="الاسم الكامل">
+            </div>
+
+            <div class="input-group">
+                <input type="password" class="glass-input" id="password" placeholder="كلمة المرور">
+            </div>
+
+            <button class="ghost-button full-width" onclick="addNewUser()">
+                إضافة مستخدم
+            </button>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <div class="bottom-nav">
+        <a href="owner-dashboard.html" class="nav-item active">
+            <div class="nav-icon">🏠</div>
+            الرئيسية
+        </a>
+        <a href="#" class="nav-item" onclick="showUsersManagement()">
+            <div class="nav-icon">👥</div>
+            المستخدمين
+        </a>
+        <a href="#" class="nav-item" onclick="showStatistics()">
+            <div class="nav-icon">📊</div>
+            الإحصائيات
+        </a>
+        <a href="#" class="nav-item" onclick="showSettings()">
+            <div class="nav-icon">⚙️</div>
+            الإعدادات
+        </a>
+        <a href="login.html" class="nav-item">
+            <div class="nav-icon">🚪</div>
+            خروج
+        </a>
+    </div>
+
+    <script>
+        // بيانات النظام
+        const systemData = {
+            governorates: [
+                { code: '02', name: 'القاهرة' }
+            ],
+            city: { code: '249', name: 'عين شمس' },
+            school: { code: '23', name: 'نهضة عين شمس' }
+        };
+
+        // تحميل البيانات
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStatistics();
+            loadUsersTable();
+            initGovernorates();
+        });
+
+        // تحميل الإحصائيات
+        function loadStatistics() {
+            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            
+            const totalUsers = users.length;
+            const totalMasters = users.filter(u => u.userType === '1').length;
+            const totalStudents = users.filter(u => u.userType === '2').length;
+            const activeToday = users.length; // يمكن تطوير هذا ليتتبع الدخول اليومي
+
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('totalMasters').textContent = totalMasters;
+            document.getElementById('totalStudents').textContent = totalStudents;
+            document.getElementById('activeToday').textContent = activeToday;
+        }
+
+        // تحميل جدول المستخدمين
+        function loadUsersTable() {
+            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            const tableBody = document.getElementById('usersTableBody');
+            
+            tableBody.innerHTML = '';
+
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.fullName}</td>
+                    <td>${user.userType === '1' ? 'مستر' : 'طالب'}</td>
+                    <td>${systemData.school.name}</td>
+                    <td>${new Date().toLocaleDateString('ar-EG')}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editUser('${user.id}')">تعديل</button>
+                        <button class="btn btn-reset" onclick="resetPassword('${user.id}')">إعادة تعيين</button>
+                        <button class="btn btn-delete" onclick="deleteUser('${user.id}')">حذف</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // تهيئة المحافظات
+        function initGovernorates() {
+            const governorateSelect = document.getElementById('governorate');
+            systemData.governorates.forEach(gov => {
+                const option = document.createElement('option');
+                option.value = gov.code;
+                option.textContent = `${gov.code} - ${gov.name}`;
+                governorateSelect.appendChild(option);
+            });
+        }
+
+        // إضافة مستخدم جديد
+        function addNewUser() {
+            const governorate = document.getElementById('governorate').value;
+            const userType = document.getElementById('userType').value;
+            const studentId = document.getElementById('studentId').value;
+            const fullName = document.getElementById('fullName').value;
+            const password = document.getElementById('password').value;
+
+            if (!governorate || !userType || !studentId || !fullName || !password) {
+                alert('يرجى ملء جميع الحقول!');
+                return;
+            }
+
+            if (studentId.length !== 3) {
+                alert('المعرف الفرعي يجب أن يكون 3 أرقام!');
+                return;
+            }
+
+            const userId = governorate + systemData.city.code + userType + systemData.school.code + studentId;
+
+            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+
+            // التحقق من عدم وجود معرف مكرر
+            if (users.find(user => user.id === userId)) {
+                alert('هذا المعرف موجود مسبقاً!');
+                return;
+            }
+
+            const newUser = {
+                id: userId,
+                password: password,
+                fullName: fullName,
+                userType: userType,
+                governorate: governorate,
+                city: systemData.city.code,
+                school: systemData.school.code,
+                studentId: studentId,
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('platformUsers', JSON.stringify(users));
+
+            alert(`تم إضافة المستخدم بنجاح!\nالمعرف: ${userId}\nكلمة المرور: ${password}`);
+
+            // إعادة تعيين النموذج
+            document.getElementById('governorate').value = '';
+            document.getElementById('userType').value = '';
+            document.getElementById('studentId').value = '';
+            document.getElementById('fullName').value = '';
+            document.getElementById('password').value = '';
+
+            // تحديث البيانات
+            loadStatistics();
+            loadUsersTable();
+        }
+
+        // تعديل مستخدم
+        function editUser(userId) {
+            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            const user = users.find(u => u.id === userId);
+            
+            if (user) {
+                const newPassword = prompt(`تعديل كلمة المرور للمستخدم ${user.fullName}:`, user.password);
+                if (newPassword && newPassword.length >= 6) {
+                    user.password = newPassword;
+                    localStorage.setItem('platformUsers', JSON.stringify(users));
+                    alert('تم تحديث كلمة المرور بنجاح!');
+                    loadUsersTable();
+                }
+            }
+        }
+
+        // إعادة تعيين كلمة المرور
+        function resetPassword(userId) {
+            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            const user = users.find(u => u.id === userId);
+            
+            if (user) {
+                const defaultPassword = '123456';
+                user.password = defaultPassword;
+                localStorage.setItem('platformUsers', JSON.stringify(users));
+                alert(`تم إعادة تعيين كلمة المرور إلى: ${defaultPassword}`);
+                loadUsersTable();
+            }
+        }
+
+        // حذف مستخدم
+        function deleteUser(userId) {
+            if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
+                let users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+                users = users.filter(u => u.id !== userId);
+                localStorage.setItem('platformUsers', JSON.stringify(users));
+                alert('تم حذف المستخدم بنجاح!');
+                loadStatistics();
+                loadUsersTable();
+            }
+        }
+
+        // وظائف شريط التنقل
+        function showUsersManagement() {
+            document.querySelector('.users-table').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showStatistics() {
+            document.querySelector('.stats-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showSettings() {
+            alert('صفحة الإعدادات قريباً...');
+        }
+    </script>
+</body>
+</html>
