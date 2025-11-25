@@ -16,12 +16,18 @@
   box-sizing: border-box;
 }
 
+/* إصلاح التمرير - أهم جزء */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
 body {
   background: linear-gradient(135deg, var(--deep-space) 0%, var(--dark-purple) 100%);
   color: var(--star-glow);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   position: relative;
 }
 
@@ -91,7 +97,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   padding: 20px;
 }
@@ -242,7 +248,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(10, 10, 42, 0.9);
+  background: rgba(10, 10, 42, 0.95);
   backdrop-filter: blur(20px);
   border-top: 1px solid rgba(0, 204, 255, 0.3);
   padding: 15px 0;
@@ -276,6 +282,41 @@ body {
   font-size: 20px;
   margin-bottom: 5px;
   font-weight: bold;
+}
+
+/* هيدر الصفحة */
+.dashboard-header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background: linear-gradient(180deg, rgba(10, 10, 42, 0.9) 0%, transparent 100%);
+  width: 100%;
+}
+
+.welcome-text {
+  font-size: 1.2rem;
+  color: var(--electric-blue);
+  margin-bottom: 10px;
+}
+
+/* محتوى الصفحة - مهم للتمرير */
+.dashboard-content {
+  padding: 20px;
+  padding-bottom: 120px; /* مساحة للشريط السفلي */
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  min-height: auto;
+  overflow: visible;
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 40px 0 30px;
+  background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* بطاقات المجالات */
@@ -531,37 +572,6 @@ body {
   cursor: not-allowed;
 }
 
-/* هيدر الصفحة */
-.dashboard-header {
-  text-align: center;
-  padding: 40px 20px 20px;
-  background: linear-gradient(180deg, rgba(10, 10, 42, 0.9) 0%, transparent 100%);
-}
-
-.welcome-text {
-  font-size: 1.2rem;
-  color: var(--electric-blue);
-  margin-bottom: 10px;
-}
-
-/* محتوى الصفحة */
-.dashboard-content {
-  padding: 20px;
-  padding-bottom: 100px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-title {
-  font-size: 2rem;
-  text-align: center;
-  margin: 40px 0 30px;
-  background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* النافذة المنبثقة */
 .modal {
   display: none;
@@ -612,6 +622,26 @@ body {
   50% { transform: translateY(-10px); }
 }
 
+/* تخصيص شريط التمرير */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 42, 0.8);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
+  border-radius: 10px;
+  border: 2px solid var(--deep-space);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--electric-blue), var(--neon-purple));
+}
+
 /* تصميم متجاوب */
 @media (max-width: 768px) {
   .cosmic-logo h1 { font-size: 3.5rem; }
@@ -645,6 +675,10 @@ body {
   }
   .free-path-card {
     padding: 30px 20px;
+  }
+  .dashboard-content {
+    padding: 15px;
+    padding-bottom: 100px;
   }
 }
 
@@ -684,46 +718,13 @@ body {
   margin: 0;
 }
 
-/* إصلاح نظام التمرير */
-body {
-    overflow: auto !important;
-    height: auto !important;
+/* إصلاح نهائي للتمرير */
+.scroll-container {
+  overflow-y: auto;
+  height: 100vh;
 }
 
-.dashboard-content {
-    padding: 20px;
-    padding-bottom: 100px;
-    max-width: 1200px;
-    margin: 0 auto;
-    min-height: calc(100vh - 200px);
-}
-
-/* تحسين التمرير للجوال */
-@media (max-width: 768px) {
-    .dashboard-content {
-        padding: 15px;
-        padding-bottom: 80px;
-    }
-    
-    .courses-grid {
-        margin-bottom: 40px;
-    }
-}
-
-/* تخصيص شريط التمرير */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(10, 10, 42, 0.8);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--neon-purple);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--electric-blue);
+.main-wrapper {
+  min-height: 100vh;
+  position: relative;
 }
