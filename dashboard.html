@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة تعليم البرمجة - الرئيسية</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* تأكد من أن التمرير شغال */
+        html, body {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body>
     <!-- الخلفية الكونية -->
@@ -105,7 +112,7 @@
                 </button>
             </div>
 
-            <!-- مجالات أخرى -->
+            <!-- مجال تطوير التطبيقات -->
             <div class="course-card" onclick="showCourseDetails('app-development')">
                 <div class="course-icon">📱</div>
                 <h3 class="course-title">تطوير التطبيقات</h3>
@@ -128,6 +135,7 @@
                 </button>
             </div>
 
+            <!-- مجال الأمن السيبراني -->
             <div class="course-card" onclick="showCourseDetails('cybersecurity')">
                 <div class="course-icon">🛡️</div>
                 <h3 class="course-title">الأمن السيبراني</h3>
@@ -149,6 +157,7 @@
                 </button>
             </div>
 
+            <!-- مجال علم البيانات -->
             <div class="course-card" onclick="showCourseDetails('data-science')">
                 <div class="course-icon">📊</div>
                 <h3 class="course-title">علم البيانات</h3>
@@ -249,6 +258,9 @@
                 </button>
             </div>
         </div>
+
+        <!-- قسم إضافي علشان نضمن إن في محتوى كافي للتمرير -->
+        <div style="height: 100px;"></div>
     </div>
 
     <!-- شريط التنقل السفلي -->
@@ -449,31 +461,5 @@
             });
         });
     </script>
-
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-languages {
-            margin: 20px 0;
-        }
-    </style>
 </body>
 </html>
