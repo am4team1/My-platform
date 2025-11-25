@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام المحادثة - منصة تعليم البرمجة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cosmic-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="planet planet-earth"></div>
+        <div class="planet planet-moon"></div>
+        <div class="sun"></div>
+    </div>
+
+    <div class="dashboard-header">
+        <div class="cosmic-logo">
+            <h1>نظام المحادثة</h1>
+            <div class="user-info">
+                <div class="welcome-text">مرحباً في نظام الدردشة</div>
+                <div class="user-type-badge">الشات</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <div class="glass-form" style="max-width: 800px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div class="course-icon">💬</div>
+                <h3 style="color: var(--electric-blue); margin: 15px 0;">نظام المحادثة قريباً</h3>
+                <p style="color: rgba(255, 255, 255, 0.8);">
+                    نحن نعمل على تطوير نظام محادثة متكامل يشبه واتساب<br>
+                    سيكون جاهزاً قريباً بميزات رائعة!
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">📱</div>
+                    <div class="stat-label">واجهة جوال</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">🔔</div>
+                    <div class="stat-label">إشعارات فورية</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">👥</div>
+                    <div class="stat-label">مجموعات دردشة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">🔒</div>
+                    <div class="stat-label">آمن ومشفر</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="ghost-button" onclick="goBack()">
+                    العودة للرئيسية
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="nav.js"></script>
+    <script>
+        function goBack() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                if (currentUser.userType === '1') {
+                    window.location.href = 'master-dashboard.html';
+                } else if (currentUser.userType === '2') {
+                    window.location.href = 'student-dashboard.html';
+                } else {
+                    window.location.href = 'owner-dashboard.html';
+                }
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // إخفاء إشعار الشات عند دخول الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            navigation.hideChatNotification();
+        });
+    </script>
+</body>
+</html>
