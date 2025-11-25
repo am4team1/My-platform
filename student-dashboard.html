@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الطالب - منصة تعليم البرمجة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cosmic-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="planet planet-earth"></div>
+        <div class="planet planet-moon"></div>
+        <div class="sun"></div>
+    </div>
+
+    <div class="dashboard-header">
+        <div class="cosmic-logo">
+            <h1>منصة تعليم البرمجة</h1>
+            <div class="user-info">
+                <div class="welcome-text" id="studentWelcome">مرحباً، الطالب</div>
+                <div class="user-type-badge">طالب</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <!-- تقدم الطالب -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="completedLessons">0</div>
+                <div class="stat-label">دروس مكتملة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalPoints">0</div>
+                <div class="stat-label">النقاط</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="currentLevel">1</div>
+                <div class="stat-label">المستوى</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="overallProgress">0%</div>
+                <div class="stat-label">التقدم العام</div>
+            </div>
+        </div>
+
+        <!-- المسارات التعليمية -->
+        <h2 class="section-title">المسارات التعليمية المتاحة</h2>
+        
+        <div class="courses-grid">
+            <div class="course-card" onclick="selectCourse('web-development')">
+                <div class="course-icon">🌐</div>
+                <h3 class="course-title">تطوير الويب</h3>
+                <p class="course-description">
+                    تعلم بناء مواقع وتطبيقات ويب متكاملة باستخدام أحدث التقنيات. ابدأ رحلتك في عالم البرمجة الأمامية والخلفية.
+                </p>
+                
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">HTML</span>
+                        <span class="course-language-tag">CSS</span>
+                        <span class="course-language-tag">JavaScript</span>
+                        <span class="course-language-tag">React</span>
+                        <span class="course-language-tag">Node.js</span>
+                    </div>
+                </div>
+                
+                <div class="progress-container" style="margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <small>التقدم</small>
+                        <small>0%</small>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px;">
+                        <div style="background: var(--success-color); height: 100%; width: 0%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                
+                <button class="select-course" onclick="event.stopPropagation(); startCourse('web-development')">
+                    بدء التعلم
+                </button>
+            </div>
+
+            <div class="course-card" onclick="selectCourse('game-development')">
+                <div class="course-icon">🎮</div>
+                <h3 class="course-title">تطوير الألعاب</h3>
+                <p class="course-description">
+                    اصنع ألعابك الخاصة وتعلم برمجة المحركات والرسوميات. طور مهاراتك في بناء عواقع تفاعلية وجذابة.
+                </p>
+                
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">C#</span>
+                        <span class="course-language-tag">C++</span>
+                        <span class="course-language-tag">Unity</span>
+                        <span class="course-language-tag">Unreal Engine</span>
+                    </div>
+                </div>
+
+                <div class="progress-container" style="margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <small>التقدم</small>
+                        <small>0%</small>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px;">
+                        <div style="background: var(--success-color); height: 100%; width: 0%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                
+                <button class="select-course" onclick="event.stopPropagation(); startCourse('game-development')">
+                    بدء التعلم
+                </button>
+            </div>
+
+            <div class="course-card" onclick="selectCourse('ai-development')">
+                <div class="course-icon">🤖</div>
+                <h3 class="course-title">الذكاء الاصطناعي</h3>
+                <p class="course-description">
+                    ادخل عالم المستقبل وتعلم بناء نماذج ذكية. طور أنظمة تتعلم وتتخذ قرارات بشكل مستقل.
+                </p>
+                
+                <div class="course-languages">
+                    <div class="course-languages-title">اللغات التي ستتعلمها:</div>
+                    <div class="course-languages-list">
+                        <span class="course-language-tag">Python</span>
+                        <span class="course-language-tag">TensorFlow</span>
+                        <span class="course-language-tag">PyTorch</span>
+                        <span class="course-language-tag">R</span>
+                    </div>
+                </div>
+
+                <div class="progress-container" style="margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <small>التقدم</small>
+                        <small>0%</small>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px;">
+                        <div style="background: var(--success-color); height: 100%; width: 0%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                
+                <button class="select-course" onclick="event.stopPropagation(); startCourse('ai-development')">
+                    بدء التعلم
+                </button>
+            </div>
+        </div>
+
+        <!-- الدروس الحديثة -->
+        <h2 class="section-title">آخر الدروس</h2>
+        
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-icon">📖</div>
+                <h3 class="course-title">مقدمة في HTML</h3>
+                <p class="course-description">
+                    تعلم أساسيات لغة HTML لبناء هيكل صفحات الويب. ابدأ رحلتك في تطوير الويب من الصفر.
+                </p>
+                <button class="select-course" onclick="startLesson('html-intro')">
+                    بدء الدرس
+                </button>
+            </div>
+
+            <div class="course-card">
+                <div class="course-icon">🎨</div>
+                <h3 class="course-title">أساسيات CSS</h3>
+                <p class="course-description">
+                    تعلم تنسيق وتجميل صفحات الويب باستخدام CSS. اصنع تصاميم رائعة وجذابة.
+                </p>
+                <button class="select-course" onclick="startLesson('css-basics')">
+                    بدء الدرس
+                </button>
+            </div>
+
+            <div class="course-card">
+                <div class="course-icon">⚡</div>
+                <h3 class="course-title">JavaScript للمبتدئين</h3>
+                <p class="course-description">
+                    ابدأ في تعلم لغة JavaScript لإضافة التفاعل لمواقعك. أساسيات البرمجة بلغة JS.
+                </p>
+                <button class="select-course" onclick="startLesson('js-basics')">
+                    بدء الدرس
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <div class="bottom-nav">
+        <a href="student-dashboard.html" class="nav-item active">
+            <div class="nav-icon">🏠</div>
+            الرئيسية
+        </a>
+        <a href="#" class="nav-item" onclick="showMyCourses()">
+            <div class="nav-icon">📚</div>
+            مساراتي
+        </a>
+        <a href="#" class="nav-item" onclick="showProgress()">
+            <div class="nav-icon">📊</div>
+            تقدمي
+        </a>
+        <a href="#" class="nav-item" onclick="showAchievements()">
+            <div class="nav-icon">🏆</div>
+            إنجازاتي
+        </a>
+        <a href="login.html" class="nav-item">
+            <div class="nav-icon">🚪</div>
+            خروج
+        </a>
+    </div>
+
+    <script>
+        // تحميل بيانات الطالب
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStudentData();
+        });
+
+        // تحميل بيانات الطالب
+        function loadStudentData() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.userType === '2') {
+                document.getElementById('studentWelcome').textContent = `مرحباً، ${currentUser.fullName}`;
+                
+                // تحميل إحصائيات الطالب (بيانات تجريبية)
+                document.getElementById('completedLessons').textContent = '0';
+                document.getElementById('totalPoints').textContent = '0';
+                document.getElementById('currentLevel').textContent = '1';
+                document.getElementById('overallProgress').textContent = '0%';
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // اختيار مسار تعليمي
+        function selectCourse(courseId) {
+            const courseDetails = getCourseDetails(courseId);
+            alert(`عرض تفاصيل مسار ${courseDetails.title}`);
+        }
+
+        // بدء مسار تعليمي
+        function startCourse(courseId) {
+            const courseDetails = getCourseDetails(courseId);
+            alert(`بدء مسار ${courseDetails.title} - النظام قيد التطوير`);
+        }
+
+        // بدء درس
+        function startLesson(lessonId) {
+            alert(`بدء الدرس - النظام قيد التطوير`);
+        }
+
+        // تفاصيل المسارات
+        function getCourseDetails(courseId) {
+            const courses = {
+                'web-development': {
+                    title: 'تطوير الويب',
+                    description: 'تعلم بناء مواقع وتطبيقات ويب متكاملة.'
+                },
+                'game-development': {
+                    title: 'تطوير الألعاب', 
+                    description: 'اصنع ألعابك الخاصة وتعلم برمجة المحركات.'
+                },
+                'ai-development': {
+                    title: 'الذكاء الاصطناعي',
+                    description: 'ادخل عالم المستقبل وتعلم بناء نماذج ذكية.'
+                }
+            };
+            return courses[courseId];
+        }
+
+        // وظائف شريط التنقل
+        function showMyCourses() {
+            document.querySelector('.courses-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showProgress() {
+            document.querySelector('.stats-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showAchievements() {
+            alert('صفحة الإنجازات قريباً...');
+        }
+    </script>
+</body>
+</html>
