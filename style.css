@@ -16,23 +16,24 @@
   box-sizing: border-box;
 }
 
-/* إصلاح التمرير - الحل النهائي */
+/* إصلاح التمرير النهائي */
 html {
-  height: 100%;
+  height: auto; /* بدل 100% */
 }
 
 body {
   background: linear-gradient(135deg, var(--deep-space) 0%, var(--dark-purple) 100%);
   color: var(--star-glow);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
+  min-height: auto;
   position: relative;
   overflow-x: hidden;
+  overflow-y: auto; /* للتأكد من التمرير */
 }
 
 /* الخلفية الكونية */
 .cosmic-background {
-  position: fixed;
+  position: fixed; /* ممكن تخليها absolute لو تحب */
   top: 0;
   left: 0;
   width: 100%;
@@ -90,13 +91,13 @@ body {
   filter: blur(50px);
 }
 
-/* تصميم الصفحات */
+/* تصميم الصفحة */
 .page-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* بدل center */
   align-items: center;
-  min-height: 100vh;
+  min-height: auto; /* بدل 100vh */
   position: relative;
   padding: 20px;
 }
@@ -300,11 +301,11 @@ body {
 /* محتوى الصفحة - إصلاح التمرير */
 .dashboard-content {
   padding: 20px;
-  padding-bottom: 120px; /* مساحة للشريط السفلي */
+  padding-bottom: 120px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  min-height: auto;
+  min-height: auto; /* بدل 100vh */
 }
 
 .section-title {
