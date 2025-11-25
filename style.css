@@ -16,11 +16,9 @@
   box-sizing: border-box;
 }
 
-/* إصلاح التمرير - أهم جزء */
-html, body {
+/* إصلاح التمرير - الحل النهائي */
+html {
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto !important;
 }
 
 body {
@@ -29,6 +27,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* الخلفية الكونية */
@@ -298,7 +297,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* محتوى الصفحة - مهم للتمرير */
+/* محتوى الصفحة - إصلاح التمرير */
 .dashboard-content {
   padding: 20px;
   padding-bottom: 120px; /* مساحة للشريط السفلي */
@@ -306,7 +305,6 @@ body {
   margin: 0 auto;
   width: 100%;
   min-height: auto;
-  overflow: visible;
 }
 
 .section-title {
@@ -716,15 +714,4 @@ body {
 .full-width {
   width: 100%;
   margin: 0;
-}
-
-/* إصلاح نهائي للتمرير */
-.scroll-container {
-  overflow-y: auto;
-  height: 100vh;
-}
-
-.main-wrapper {
-  min-height: 100vh;
-  position: relative;
 }
