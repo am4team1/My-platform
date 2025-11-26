@@ -72,7 +72,7 @@
         </div>
 
         <!-- إضافة مستخدم جديد -->
-        <div class="glass-form">
+        <div class="glass-form" id="addUserForm">
             <h3 style="text-align: center; color: var(--electric-blue); margin-bottom: 30px;">إضافة مستخدم جديد</h3>
             
             <div class="input-group">
@@ -101,7 +101,7 @@
                 <input type="password" class="glass-input" id="password" placeholder="كلمة المرور">
             </div>
 
-            <button class="ghost-button full-width" onclick="addNewUser()">
+            <button class="ghost-button full-width" id="addUserBtn">
                 إضافة مستخدم
             </button>
         </div>
@@ -130,9 +130,15 @@
             خروج
         </a>
     </div>
-    
+
+    <!-- تحميل سكريبت الإدارة أولاً -->
+    <script src="admin.js"></script>
+
     <script>
-        // بيانات النظام
+        // Instance من كلاس إدارة المستخدمين
+        const UM = new UserManagement();
+
+        // بيانات النظام المحلية (تُستخدم في توليد المعرف والواجهة)
         const systemData = {
             governorates: [
                 { code: '02', name: 'القاهرة' }
@@ -141,43 +147,63 @@
             school: { code: '23', name: 'نهضة عين شمس' }
         };
 
-        // تحميل البيانات
+        // عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
+            initGovernorates();
             loadStatistics();
             loadUsersTable();
-            initGovernorates();
+
+            // ربط زر الإضافة
+            document.getElementById('addUserBtn').addEventListener('click', addNewUser);
         });
 
-        // تحميل الإحصائيات
-        function loadStatistics() {
-            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
-            
-            const totalUsers = users.length;
-            const totalMasters = users.filter(u => u.userType === '1').length;
-            const totalStudents = users.filter(u => u.userType === '2').length;
-            const activeToday = users.length; // يمكن تطوير هذا ليتتبع الدخول اليومي
-
-            document.getElementById('totalUsers').textContent = totalUsers;
-            document.getElementById('totalMasters').textContent = totalMasters;
-            document.getElementById('totalStudents').textContent = totalStudents;
-            document.getElementById('activeToday').textContent = activeToday;
+        // تهيئة قائمة المحافظات
+        function initGovernorates() {
+            const governorateSelect = document.getElementById('governorate');
+            // تفريغ أولاً
+            governorateSelect.innerHTML = '<option value="">اختر المحافظة</option>';
+            systemData.governorates.forEach(gov => {
+                const option = document.createElement('option');
+                option.value = gov.code;
+                option.textContent = `${gov.code} - ${gov.name}`;
+                governorateSelect.appendChild(option);
+            });
         }
 
-        // تحميل جدول المستخدمين
+        // تحميل الإحصائيات من UM
+        function loadStatistics() {
+            const stats = UM.getStatistics();
+
+            document.getElementById('totalUsers').textContent = stats.totalUsers;
+            document.getElementById('totalMasters').textContent = stats.totalMasters;
+            document.getElementById('totalStudents').textContent = stats.totalStudents;
+            document.getElementById('activeToday').textContent = stats.activeToday;
+        }
+
+        // تحميل جدول المستخدمين من UM
         function loadUsersTable() {
-            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            const users = UM.users || [];
             const tableBody = document.getElementById('usersTableBody');
-            
             tableBody.innerHTML = '';
+
+            if (users.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td colspan="6" style="text-align:center; padding:20px; color: rgba(255,255,255,0.7);">لا يوجد مستخدمين بعد.</td>`;
+                tableBody.appendChild(tr);
+                return;
+            }
 
             users.forEach(user => {
                 const row = document.createElement('tr');
+
+                const lastLoginDisplay = user.lastLogin ? new Date(user.lastLogin).toLocaleString('ar-EG') : 'لم يسجل الدخول بعد';
+
                 row.innerHTML = `
                     <td>${user.id}</td>
-                    <td>${user.fullName}</td>
+                    <td>${user.fullName || '-'}</td>
                     <td>${user.userType === '1' ? 'مستر' : 'طالب'}</td>
                     <td>${systemData.school.name}</td>
-                    <td>${new Date().toLocaleDateString('ar-EG')}</td>
+                    <td>${lastLoginDisplay}</td>
                     <td>
                         <button class="btn btn-edit" onclick="editUser('${user.id}')">تعديل</button>
                         <button class="btn btn-reset" onclick="resetPassword('${user.id}')">إعادة تعيين</button>
@@ -188,23 +214,12 @@
             });
         }
 
-        // تهيئة المحافظات
-        function initGovernorates() {
-            const governorateSelect = document.getElementById('governorate');
-            systemData.governorates.forEach(gov => {
-                const option = document.createElement('option');
-                option.value = gov.code;
-                option.textContent = `${gov.code} - ${gov.name}`;
-                governorateSelect.appendChild(option);
-            });
-        }
-
-        // إضافة مستخدم جديد
+        // إضافة مستخدم جديد - يستخدِم UM
         function addNewUser() {
             const governorate = document.getElementById('governorate').value;
             const userType = document.getElementById('userType').value;
-            const studentId = document.getElementById('studentId').value;
-            const fullName = document.getElementById('fullName').value;
+            const studentId = document.getElementById('studentId').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
             const password = document.getElementById('password').value;
 
             if (!governorate || !userType || !studentId || !fullName || !password) {
@@ -212,89 +227,89 @@
                 return;
             }
 
-            if (studentId.length !== 3) {
+            if (!/^\d{3}$/.test(studentId)) {
                 alert('المعرف الفرعي يجب أن يكون 3 أرقام!');
                 return;
             }
 
-            const userId = governorate + systemData.city.code + userType + systemData.school.code + studentId;
+            const userId = UM.generateUserId(governorate, userType, studentId);
 
-            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
+            try {
+                UM.addUser({
+                    id: userId,
+                    password,
+                    fullName,
+                    userType,
+                    governorate,
+                    city: systemData.city.code,
+                    school: systemData.school.code,
+                    studentId
+                });
 
-            // التحقق من عدم وجود معرف مكرر
-            if (users.find(user => user.id === userId)) {
-                alert('هذا المعرف موجود مسبقاً!');
+                alert(`تم إضافة المستخدم بنجاح!\nالمعرف: ${userId}`);
+
+                // تفريغ الحقول
+                document.getElementById('governorate').value = '';
+                document.getElementById('userType').value = '';
+                document.getElementById('studentId').value = '';
+                document.getElementById('fullName').value = '';
+                document.getElementById('password').value = '';
+
+                // تحديث العرض
+                loadUsersTable();
+                loadStatistics();
+            } catch (e) {
+                alert(e.message || 'حدث خطأ أثناء الإضافة');
+            }
+        }
+
+        // تعديل مستخدم (تعديل كلمة المرور فقط في هذه الواجهة)
+        function editUser(userId) {
+            const users = UM.users;
+            const user = users.find(u => u.id === userId);
+            if (!user) {
+                alert('المستخدم غير موجود');
                 return;
             }
 
-            const newUser = {
-                id: userId,
-                password: password,
-                fullName: fullName,
-                userType: userType,
-                governorate: governorate,
-                city: systemData.city.code,
-                school: systemData.school.code,
-                studentId: studentId,
-                createdAt: new Date().toISOString()
-            };
+            const newPassword = prompt(`تعديل كلمة المرور للمستخدم ${user.fullName}:`, user.password || '');
+            if (newPassword === null) return; // إلغاء
+            if (newPassword.trim().length > 0 && newPassword.trim().length < 6) {
+                alert('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                return;
+            }
 
-            users.push(newUser);
-            localStorage.setItem('platformUsers', JSON.stringify(users));
-
-            alert(`تم إضافة المستخدم بنجاح!\nالمعرف: ${userId}\nكلمة المرور: ${password}`);
-
-            // إعادة تعيين النموذج
-            document.getElementById('governorate').value = '';
-            document.getElementById('userType').value = '';
-            document.getElementById('studentId').value = '';
-            document.getElementById('fullName').value = '';
-            document.getElementById('password').value = '';
-
-            // تحديث البيانات
-            loadStatistics();
-            loadUsersTable();
-        }
-
-        // تعديل مستخدم
-        function editUser(userId) {
-            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
-            const user = users.find(u => u.id === userId);
-            
-            if (user) {
-                const newPassword = prompt(`تعديل كلمة المرور للمستخدم ${user.fullName}:`, user.password);
-                if (newPassword && newPassword.length >= 6) {
-                    user.password = newPassword;
-                    localStorage.setItem('platformUsers', JSON.stringify(users));
-                    alert('تم تحديث كلمة المرور بنجاح!');
-                    loadUsersTable();
-                }
+            try {
+                UM.updateUser(userId, { password: newPassword.trim() });
+                alert('تم تحديث كلمة المرور بنجاح!');
+                loadUsersTable();
+            } catch (e) {
+                alert(e.message || 'حدث خطأ أثناء التحديث');
             }
         }
 
         // إعادة تعيين كلمة المرور
         function resetPassword(userId) {
-            const users = JSON.parse(localStorage.getItem('platformUsers')) || [];
-            const user = users.find(u => u.id === userId);
-            
-            if (user) {
-                const defaultPassword = '123456';
-                user.password = defaultPassword;
-                localStorage.setItem('platformUsers', JSON.stringify(users));
-                alert(`تم إعادة تعيين كلمة المرور إلى: ${defaultPassword}`);
+            if (!confirm('هل تريد إعادة تعيين كلمة المرور إلى القيمة الافتراضية (123456)؟')) return;
+            try {
+                UM.resetPassword(userId, '123456');
+                alert('تم إعادة تعيين كلمة المرور إلى: 123456');
                 loadUsersTable();
+            } catch (e) {
+                alert(e.message || 'حدث خطأ أثناء إعادة التعيين');
             }
         }
 
         // حذف مستخدم
         function deleteUser(userId) {
-            if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
-                let users = JSON.parse(localStorage.getItem('platformUsers')) || [];
-                users = users.filter(u => u.id !== userId);
-                localStorage.setItem('platformUsers', JSON.stringify(users));
+            if (!confirm('هل أنت متأكد من حذف هذا المستخدم؟')) return;
+            try {
+                UM.deleteUser(userId);
                 alert('تم حذف المستخدم بنجاح!');
-                loadStatistics();
                 loadUsersTable();
+                loadStatistics();
+            } catch (e) {
+                alert(e.message || 'حدث خطأ أثناء الحذف');
             }
         }
 
@@ -310,7 +325,9 @@
         function showSettings() {
             alert('صفحة الإعدادات قريباً...');
         }
-   
     </script>
+
+    <!-- ملف الملاحة الحديث (إن وُجد) -->
+    <script src="modern-nav.js"></script>
 </body>
 </html>
