@@ -103,6 +103,61 @@ body {
   padding: 20px;
 }
 
+/* إصلاح تمركز فورم إضافة المستخدم + جعله في النص */
+.owner-add-user-box,
+.add-user-form,
+.manage-users-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto !important;
+  display: block;
+}
+
+/* ضبط مكان الفورم جوة صفحة الاونر */
+.owner-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 20px;
+}
+
+/* جعل الفورم نفسه أكثر توازناً في المنتصف */
+.owner-section .glass-form {
+  max-width: 600px;
+  margin: 25px auto !important;
+}
+
+/* إصلاح ظهور جدول المستخدمين */
+.users-table {
+  width: 100%;
+  margin: 30px auto;
+  display: block;
+  overflow-x: auto;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+}
+
+/* تحسين صفوف جدول المستخدمين */
+.users-table table td,
+.users-table table th {
+  color: var(--star-glow);
+  font-size: 16px;
+}
+
+/* جعل الجدول واضح أكثر */
+.users-table table tr:hover {
+  background: rgba(255,255,255,0.08) !important;
+}
+
+/* إصلاح زرار إضافة المستخدم */
+.add-user-btn {
+  display: block;
+  margin: 20px auto !important;
+  width: 250px;
+  }
+
 /* الشعار */
 .cosmic-logo {
   text-align: center;
