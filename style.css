@@ -288,7 +288,7 @@ body {
 .loading-spinner:before {
   content: '';
   position: absolute;
-  top: -3px;
+ top: -3px;
   left: -3px;
   right: -3px;
   bottom: -3px;
@@ -298,46 +298,122 @@ body {
   animation: spin 2s linear infinite;
 }
 
-/* شريط التنقل السفلي */
+/* شريط سفلي حديث + أنيميشن الظهور والإخفاء */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(10, 10, 42, 0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(0, 204, 255, 0.3);
-  padding: 15px 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px 20px 0 0;
+    padding: 12px 0 8px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    opacity: 1;
 }
 
+/* عندما يكون مخفي */
+.bottom-nav.hidden {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+}
+
+/* السهم العلوي */
+.nav-toggle-up,
+.nav-toggle-down {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 70px;
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    color: var(--electric-blue);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1500;
+    transition: all 0.3s ease;
+}
+
+.nav-toggle-up:hover,
+.nav-toggle-down:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateX(-50%) scale(1.1);
+}
+
+/* سهم الإغلاق تحت الشريط */
+.nav-toggle-down {
+    bottom: 95px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* عند ظهور الشريط */
+.bottom-nav:not(.hidden) ~ .nav-toggle-down {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* عند إخفاء الشريط */
+.bottom-nav.hidden ~ .nav-toggle-up {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bottom-nav:not(.hidden) ~ .nav-toggle-up {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* عناصر الشريط */
 .nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--star-glow);
-  text-decoration: none;
-  font-size: 12px;
-  transition: all 0.3s ease;
-  padding: 5px 15px;
-  border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--star-glow);
+    text-decoration: none;
+    font-size: 12px;
+    transition: 0.3s;
+    padding: 5px 15px;
+    border-radius: 15px;
 }
 
 .nav-item:hover {
-  background: var(--transparent-blue);
-  transform: translateY(-3px);
-}
-
-.nav-item.active {
-  color: var(--neon-purple);
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-4px);
 }
 
 .nav-icon {
-  font-size: 20px;
-  margin-bottom: 5px;
-  font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 4px;
+    background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* أنيميشن ناعم */
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 0; }
 }
 
 /* هيدر الصفحة */
