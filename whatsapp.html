@@ -1,457 +1,157 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>واتساب - منصة تعليم البرمجة</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* -- اضافات CSS خاصة بصفحة الواتساب (لا تغير اسم الملف الأساسي) -- */
-    .wa-page {
-      max-width: 1200px;
-      margin: 30px auto;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: 16px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      min-height: 70vh;
-    }
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
 
-    /* قائمة الجهات */
-    .wa-contacts {
-      background: rgba(255,255,255,0.03);
-      border-left: 1px solid rgba(255,255,255,0.04);
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    <style>
+        body {
+            margin: 0;
+            background: #111;
+            font-family: sans-serif;
+        }
 
-    .wa-header {
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap:10px;
-      padding: 0 6px 12px 6px;
-    }
-    .wa-title {
-      font-weight: 700;
-      color: var(--electric-blue);
-      font-size: 1.2rem;
-    }
-    .wa-search {
-      width: 100%;
-      margin-top: 8px;
-    }
-    .wa-search input {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: var(--star-glow);
-      outline: none;
-    }
+        .chat-container {
+            display: flex;
+            height: 100vh;
+        }
 
-    .contact {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      padding: 10px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background .18s, transform .12s;
-    }
-    .contact:hover { background: rgba(255,255,255,0.03); transform: translateY(-2px); }
-    .contact.active { background: linear-gradient(90deg, rgba(0,204,255,0.06), rgba(139,0,255,0.04)); border: 1px solid rgba(255,255,255,0.04); }
+        /* قائمة المحادثات */
+        .chat-list {
+            width: 30%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            overflow-y: auto;
+        }
 
-    .contact .avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: linear-gradient(45deg,var(--neon-purple), var(--electric-blue));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color: white;
-      font-weight:700;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-    .contact .meta {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-    }
-    .contact .meta .name { font-weight:600; color:var(--star-glow); }
-    .contact .meta .preview { font-size:0.9rem; color: rgba(255,255,255,0.6); margin-top:4px; }
+        .chat-item {
+            padding: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    /* نافذة المحادثة */
-    .wa-chat {
-      display:flex;
-      flex-direction:column;
-      height: 100%;
-    }
+        .chat-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
 
-    .chat-top {
-      padding: 18px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-    }
-    .chat-top .name { font-weight:700; color: var(--electric-blue); }
-    .chat-top .sub { color: rgba(255,255,255,0.6); font-size:0.9rem; }
+        .chat-item h3 {
+            margin: 0;
+            color: #0cf;
+        }
 
-    .messages {
-      padding: 20px;
-      flex:1;
-      overflow-y:auto;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background-image: linear-gradient(transparent 0 0);
-    }
+        .chat-item p {
+            color: #ccc;
+            font-size: 13px;
+            margin-top: 6px;
+        }
 
-    .msg {
-      max-width: 70%;
-      padding: 10px 14px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-      color: var(--deep-space);
-      align-self: flex-start;
-      background: linear-gradient(45deg, rgba(255,255,255,0.95), rgba(240,240,240,0.95));
-      font-size: 0.98rem;
-    }
+        /* نافذة المحادثة */
+        .chat-window {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(15px);
+        }
 
-    .msg.you {
-      align-self: flex-end;
-      background: linear-gradient(45deg, var(--electric-blue), var(--neon-purple));
-      color: white;
-    }
+        /* منطقة الرسائل */
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
 
-    .typing {
-      display:inline-block;
-      padding: 8px 12px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 12px;
-      color: rgba(255,255,255,0.7);
-      font-size: 0.9rem;
-      width: 110px;
-    }
+        .message {
+            background: rgba(0,204,255,0.2);
+            padding: 10px 14px;
+            max-width: 65%;
+            margin-bottom: 12px;
+            border-radius: 15px;
+            color: white;
+            animation: fadeIn 0.3s;
+        }
 
-    .chat-bottom {
-      padding: 14px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.02));
-    }
+        .me {
+            background: rgba(139,0,255,0.3);
+            margin-right: auto;
+        }
 
-    .chat-input {
-      flex:1;
-      display:flex;
-      gap:8px;
-      align-items:center;
-    }
+        /* صندوق كتابة الرسالة */
+        .input-box {
+            display: flex;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+        }
 
-    .chat-input textarea {
-      width:100%;
-      min-height:46px;
-      max-height:120px;
-      resize:none;
-      padding:10px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: var(--star-glow);
-      outline:none;
-      font-size: 1rem;
-    }
+        .input-box input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            margin-left: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
 
-    .wa-send-btn {
-      background: linear-gradient(45deg, var(--neon-purple), var(--electric-blue));
-      color: #fff;
-      padding: 11px 16px;
-      border-radius: 12px;
-      border:none;
-      cursor:pointer;
-      font-weight:600;
-      box-shadow: 0 8px 30px rgba(139,0,255,0.15);
-    }
+        .input-box button {
+            padding: 12px 20px;
+            border: none;
+            background: #0cf;
+            border-radius: 10px;
+        }
 
-    .wa-open-whatsapp {
-      margin-right: 10px;
-      background: rgba(37,211,102,0.15);
-      border: 1px solid rgba(37,211,102,0.25);
-      color: var(--success-color);
-      padding: 9px 12px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight:600;
-    }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
 
-    /* responsive */
-    @media (max-width: 900px) {
-      .wa-page { grid-template-columns: 1fr; min-height: 70vh; }
-      .wa-contacts { order: 2; }
-      .wa-chat { order: 1; }
-      .chat-top .sub { display:none; }
-    }
-  </style>
 </head>
 <body>
 
-  <div class="dashboard-header">
-    <div class="cosmic-logo">
-      <h1>واتساب - دعم المنصة</h1>
-      <div class="user-info">
-        <div class="welcome-text">تواصل معنا مباشرة عبر واتساب</div>
-      </div>
+<div class="chat-container">
+
+    <!-- قائمة المحادثات -->
+    <div class="chat-list" id="chatList">
+        <div class="chat-item">
+            <h3>مستخدم 101</h3>
+            <p>آخر رسالة...</p>
+        </div>
+        <div class="chat-item">
+            <h3>المجموعة 1</h3>
+            <p>مرحباً بالجميع</p>
+        </div>
     </div>
-  </div>
 
-  <main class="wa-page" role="main">
-
-    <!-- قائمة الجهات -->
-    <aside class="wa-contacts" aria-label="قائمة جهات الاتصال">
-      <div class="wa-header">
-        <div>
-          <div class="wa-title">جهات الاتصال</div>
-          <div class="wa-sub" style="color:rgba(255,255,255,0.6);font-size:0.9rem">الدعم الفني و الفرق</div>
-        </div>
-        <button class="wa-open-whatsapp" id="openExternal">فتح في واتساب</button>
-      </div>
-
-      <div class="wa-search">
-        <input id="contactSearch" placeholder="ابحث عن جهة..." aria-label="بحث" />
-      </div>
-
-      <div id="contactsList" style="margin-top:8px;">
-        <!-- جهات الاتصال ستملى ديناميكياً -->
-      </div>
-    </aside>
-
-    <!-- نافذة المحادثة -->
-    <section class="wa-chat" aria-label="نافذة المحادثة">
-      <div class="chat-top">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div class="avatar" style="width:46px;height:46px;border-radius:10px;background:linear-gradient(45deg,var(--neon-purple),var(--electric-blue));display:flex;align-items:center;justify-content:center;color:white;font-weight:700">د</div>
-          <div>
-            <div class="name" id="chatName">فريق الدعم</div>
-            <div class="sub" id="chatSub">متصل عادةً خلال دقائق</div>
-          </div>
+    <!-- نافذة الدردشة -->
+    <div class="chat-window">
+        <div class="messages" id="messages">
         </div>
 
-        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-          <button class="wa-open-whatsapp" id="openChatExternal">محادثة حقيقية</button>
+        <div class="input-box">
+            <input type="text" id="msgInput" placeholder="اكتب رسالة...">
+            <button onclick="sendMessage()">إرسال</button>
         </div>
-      </div>
+    </div>
 
-      <div class="messages" id="messagesArea" role="log" aria-live="polite">
-        <!-- الرسائل تظهر هنا -->
-      </div>
+</div>
 
-      <div class="chat-bottom">
-        <div class="chat-input">
-          <textarea id="messageInput" placeholder="اكتب رسالة..." aria-label="اكتب رسالة"></textarea>
-        </div>
+<script>
+function sendMessage() {
+    const text = document.getElementById("msgInput").value;
+    if (!text.trim()) return;
 
-        <div style="display:flex;align-items:center;">
-          <button class="wa-send-btn" id="sendBtn">ارسال</button>
-        </div>
-      </div>
-    </section>
+    const box = document.createElement("div");
+    box.className = "message me";
+    box.textContent = text;
 
-  </main>
+    document.getElementById("messages").appendChild(box);
+    document.getElementById("msgInput").value = "";
+}
+</script>
 
-  <script>
-    // بيانات تهيئة: جهات الاتصال الافتراضية
-    const defaultContacts = [
-      {
-        id: 'support-001',
-        name: 'فريق الدعم',
-        phone: '201234567890', // استخدم رقم بصيغة دولية عند الحاجة (مثلاً: 201234567890)
-        preview: 'مرحباً! كيف يمكننا مساعدتك؟',
-        messages: [
-          { from: 'them', text: 'مرحباً! كيف يمكننا مساعدتك؟', at: new Date().toISOString() }
-        ]
-      },
-      {
-        id: 'office-002',
-        name: 'قسم التسجيل',
-        phone: '201112223334',
-        preview: 'أهلاً، ارسل بياناتك...',
-        messages: [
-          { from: 'them', text: 'أهلاً بك في قسم التسجيل.', at: new Date().toISOString() }
-        ]
-      }
-    ];
-
-    // مفتاح التخزين
-    const STORAGE_KEY = 'waChats_v1';
-
-    // تحميل/حفظ
-    function loadChats() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultContacts));
-        return JSON.parse(JSON.stringify(defaultContacts));
-      }
-      try {
-        return JSON.parse(raw);
-      } catch (e) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultContacts));
-        return JSON.parse(JSON.stringify(defaultContacts));
-      }
-    }
-
-    function saveChats(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-
-    // حالة التطبيق
-    let chats = loadChats();
-    let activeChatId = chats[0].id;
-
-    // عناصر DOM
-    const contactsList = document.getElementById('contactsList');
-    const messagesArea = document.getElementById('messagesArea');
-    const messageInput = document.getElementById('messageInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const contactSearch = document.getElementById('contactSearch');
-    const chatName = document.getElementById('chatName');
-    const chatSub = document.getElementById('chatSub');
-    const openExternal = document.getElementById('openExternal');
-    const openChatExternal = document.getElementById('openChatExternal');
-
-    // render contacts
-    function renderContacts(filter = '') {
-      contactsList.innerHTML = '';
-      const query = filter.trim().toLowerCase();
-      chats.filter(c => c.name.toLowerCase().includes(query) || c.preview.toLowerCase().includes(query)).forEach(c => {
-        const el = document.createElement('div');
-        el.className = 'contact' + (c.id === activeChatId ? ' active' : '');
-        el.innerHTML = `
-          <div class="avatar">${c.name.slice(0,1)}</div>
-          <div class="meta">
-            <div class="name">${c.name}</div>
-            <div class="preview">${(c.messages && c.messages.length) ? c.messages[c.messages.length-1].text : c.preview}</div>
-          </div>
-        `;
-        el.addEventListener('click', () => {
-          activeChatId = c.id;
-          renderContacts(contactSearch.value);
-          renderMessages();
-        });
-        contactsList.appendChild(el);
-      });
-
-      if (contactsList.children.length === 0) {
-        contactsList.innerHTML = '<div style="padding:12px;color:rgba(255,255,255,0.6)">لا توجد نتائج</div>';
-      }
-    }
-
-    // render messages
-    function renderMessages() {
-      const chat = chats.find(c => c.id === activeChatId);
-      if (!chat) return;
-      chatName.textContent = chat.name;
-      chatSub.textContent = 'رقم: ' + (chat.phone || 'غير متوفر');
-
-      messagesArea.innerHTML = '';
-      (chat.messages || []).forEach(m => {
-        const div = document.createElement('div');
-        div.className = 'msg ' + (m.from === 'you' ? 'you' : 'them');
-        div.textContent = m.text;
-        messagesArea.appendChild(div);
-      });
-
-      // scroll to bottom
-      setTimeout(() => { messagesArea.scrollTop = messagesArea.scrollHeight; }, 50);
-    }
-
-    // إرسال رسالة
-    function sendMessage() {
-      const text = messageInput.value.trim();
-      if (!text) return;
-      const chat = chats.find(c => c.id === activeChatId);
-      if (!chat) return;
-      chat.messages = chat.messages || [];
-      chat.messages.push({ from: 'you', text, at: new Date().toISOString() });
-      chat.preview = text;
-      saveChats(chats);
-      messageInput.value = '';
-      renderContacts(contactSearch.value);
-      renderMessages();
-
-      // محاكاة رد سريع بعد ثواني قليلة
-      setTimeout(() => {
-        simulateReply(chat.id);
-      }, 900 + Math.random()*800);
-    }
-
-    function simulateReply(chatId) {
-      const chat = chats.find(c => c.id === chatId);
-      if (!chat) return;
-      const replies = [
-        'شكرًا لتواصلك، سنرد عليك قريبًا.',
-        'تم استلام رسالتك ✅',
-        'هل يمكنك توضيح طلبك أكثر؟',
-        'تمت معالجة طلبك، سنتابع معك.'
-      ];
-      const reply = replies[Math.floor(Math.random()*replies.length)];
-      chat.messages.push({ from: 'them', text: reply, at: new Date().toISOString() });
-      chat.preview = reply;
-      saveChats(chats);
-      if (activeChatId === chatId) renderMessages();
-      renderContacts(contactSearch.value);
-    }
-
-    // فتح محادثة حقيقية في WhatsApp (wa.me)
-    function openWhatsAppExternal(phone, text = '') {
-      // phone: بالأرقام الدولية بدون +
-      const encoded = encodeURIComponent(text || 'مرحباً، أريد المساعدة بخصوص منصة تعليم البرمجة.');
-      const url = 'https://wa.me/' + phone + '?text=' + encoded;
-      window.open(url, '_blank');
-    }
-
-    // events
-    sendBtn.addEventListener('click', sendMessage);
-    messageInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    });
-
-    contactSearch.addEventListener('input', () => {
-      renderContacts(contactSearch.value);
-    });
-
-    openExternal.addEventListener('click', () => {
-      // يفتح رقم أول جهة اتصال كاختبار
-      const target = chats[0] && chats[0].phone ? chats[0].phone : '';
-      if (!target) return alert('لا يوجد رقم خارجي مضبوط للفتح.');
-      openWhatsAppExternal(target);
-    });
-
-    openChatExternal.addEventListener('click', () => {
-      const chat = chats.find(c => c.id === activeChatId);
-      if (!chat || !chat.phone) return alert('رقم الجهة غير متوفر.');
-      openWhatsAppExternal(chat.phone, 'مرحباً '+chat.name+'، أرسل لي التفاصيل من فضلك.');
-    });
-
-    // init
-    renderContacts();
-    renderMessages();
-
-    // حفظ عند إغلاق التبويب
-    window.addEventListener('beforeunload', () => saveChats(chats));
-  </script>
 </body>
 </html>
