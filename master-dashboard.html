@@ -257,22 +257,8 @@
                 studentId: studentId.slice(-3),
                 createdAt: new Date().toISOString(),
                 masterId: currentUser.id
-
+            };
              
-           const bottomNav = document.getElementById("bottomNav");
-           const openNav = document.getElementById("openNav");
-           const closeNav = document.getElementById("closeNav");
-
-               openNav.onclick = () => {
-               bottomNav.classList.remove("hidden");
-               };
-
-              closeNav.onclick = () => {
-              bottomNav.classList.add("hidden");
-              
-              };
-
-
             users.push(newStudent);
             localStorage.setItem('platformUsers', JSON.stringify(users));
 
@@ -328,6 +314,21 @@
         function showReports() {
             document.querySelector('.stats-grid').scrollIntoView({ behavior: 'smooth' });
         }
+   
+<script>
+const bottomNav = document.getElementById("bottomNav");
+const openNav = document.getElementById("openNav");
+const closeNav = document.getElementById("closeNav");
+
+openNav.onclick = () => {
+    bottomNav.classList.remove("hidden");
+};
+
+closeNav.onclick = () => {
+    bottomNav.classList.add("hidden");
+};
+</script>
+        
     </script>
 </body>
 </html>
